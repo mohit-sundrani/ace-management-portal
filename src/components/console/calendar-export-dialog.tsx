@@ -1,4 +1,4 @@
-import { Download, FileDown } from "lucide-react";
+import { FileDown, RotateCcw } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
 import { StatusBadge, type Tone } from "@/components/console/status-badge";
@@ -12,6 +12,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Textarea } from "@/components/ui/textarea";
@@ -29,6 +30,8 @@ export type CalendarPrintOptions = {
   selection: ReadonlySet<string>;
   headerNote: string;
   footerNote: string;
+  from?: string;
+  to?: string;
 };
 
 const KIND_LABEL: Record<CalendarEntry["kind"], string> = {
@@ -57,25 +60,54 @@ export function CalendarExportDialog({
   const [selection, setSelection] = useState<Set<string>>(() => new Set());
   const [headerNote, setHeaderNote] = useState("");
   const [footerNote, setFooterNote] = useState("");
+  const [fromDate, setFromDate] = useState("");
+  const [toDate, setToDate] = useState("");
 
   useEffect(() => {
     if (open) {
       setSelection(new Set(entries.map((entry) => entry.id)));
       setHeaderNote("");
       setFooterNote("");
+      setFromDate("");
+      setToDate("");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
+  const visibleEntries = useMemo(
+    () =>
+      entries.filter(
+        (entry) => (!fromDate || entry.date >= fromDate) && (!toDate || entry.date <= toDate),
+      ),
+    [entries, fromDate, toDate],
+  );
+
+  const rangeInvalid = Boolean(fromDate && toDate && fromDate > toDate);
+
   const groups = useMemo(
     () =>
       (["item", "task", "event"] as const)
-        .map((kind) => ({ kind, list: entries.filter((entry) => entry.kind === kind) }))
+        .map((kind) => ({ kind, list: visibleEntries.filter((entry) => entry.kind === kind) }))
         .filter((group) => group.list.length > 0),
-    [entries],
+    [visibleEntries],
   );
 
   const selectedCount = selection.size;
+
+  const setRange = (from: string, to: string) => {
+    setFromDate(from);
+    setToDate(to);
+    const visible = entries.filter(
+      (entry) => (!from || entry.date >= from) && (!to || entry.date <= to),
+    );
+    setSelection(new Set(visible.map((entry) => entry.id)));
+  };
+
+  const clearRange = () => {
+    setFromDate("");
+    setToDate("");
+    setSelection(new Set(entries.map((entry) => entry.id)));
+  };
 
   const toggle = (id: string) => {
     setSelection((current) => {
@@ -88,7 +120,7 @@ export function CalendarExportDialog({
 
   const toggleGroup = (kind: CalendarEntry["kind"]) => {
     setSelection((current) => {
-      const ids = entries.filter((entry) => entry.kind === kind).map((entry) => entry.id);
+      const ids = visibleEntries.filter((entry) => entry.kind === kind).map((entry) => entry.id);
       const allSelected = ids.every((id) => current.has(id));
       const next = new Set(current);
       for (const id of ids) {
@@ -101,7 +133,9 @@ export function CalendarExportDialog({
 
   const toggleAll = () => {
     setSelection((current) =>
-      current.size === entries.length ? new Set() : new Set(entries.map((entry) => entry.id)),
+      current.size === visibleEntries.length
+        ? new Set()
+        : new Set(visibleEntries.map((entry) => entry.id)),
     );
   };
 
@@ -130,25 +164,68 @@ export function CalendarExportDialog({
 
           <div className="space-y-2">
             <div className="flex items-center justify-between">
+              <Label>Date range</Label>
+              {fromDate || toDate ? (
+                <button
+                  type="button"
+                  onClick={clearRange}
+                  className="flex items-center gap-1 text-xs font-medium text-grey transition-colors hover:text-foreground"
+                >
+                  <RotateCcw className="size-3" aria-hidden />
+                  Clear range
+                </button>
+              ) : null}
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="space-y-2">
+                <Label htmlFor="export-from">From</Label>
+                <Input
+                  id="export-from"
+                  type="date"
+                  value={fromDate}
+                  onChange={(event) => setRange(event.target.value, toDate)}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="export-to">To</Label>
+                <Input
+                  id="export-to"
+                  type="date"
+                  value={toDate}
+                  onChange={(event) => setRange(fromDate, event.target.value)}
+                />
+              </div>
+            </div>
+            {rangeInvalid ? (
+              <p className="text-xs text-danger">From must not be later than to.</p>
+            ) : (
+              <p className="text-xs text-grey">Leave both empty to include every date.</p>
+            )}
+          </div>
+
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
               <Label>Include in download</Label>
               <button
                 type="button"
                 onClick={toggleAll}
                 className="text-xs font-medium text-grey transition-colors hover:text-foreground"
               >
-                {selectedCount === entries.length ? "Deselect all" : "Select all"}
+                {selectedCount === visibleEntries.length ? "Deselect all" : "Select all"}
               </button>
             </div>
             <div className="rounded-sm border border-stroke">
               <div className="flex items-center justify-between border-b border-stroke px-3 py-2">
                 <p className="label-mono">Entries</p>
                 <p className="label-mono">
-                  {selectedCount}/{entries.length} selected
+                  {selectedCount}/{visibleEntries.length} selected
                 </p>
               </div>
-              {entries.length === 0 ? (
+              {visibleEntries.length === 0 ? (
                 <p className="px-4 py-6 text-center text-sm text-grey">
-                  Nothing is scheduled yet - add items to the calendar to export them.
+                  {rangeInvalid
+                    ? "The from date is later than the to date - choose a valid range."
+                    : "Nothing is scheduled in this range - widen the dates or add items to the calendar to export them."}
                 </p>
               ) : (
                 <ScrollArea className="h-56">
@@ -233,8 +310,10 @@ export function CalendarExportDialog({
             Cancel
           </Button>
           <Button
-            disabled={selectedCount === 0}
-            onClick={() => onDownload({ selection, headerNote, footerNote })}
+            disabled={selectedCount === 0 || rangeInvalid}
+            onClick={() =>
+              onDownload({ selection, headerNote, footerNote, from: fromDate, to: toDate })
+            }
           >
             <FileDown className="size-4" aria-hidden />
             Download PDF

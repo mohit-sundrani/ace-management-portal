@@ -482,11 +482,13 @@ function CalendarPage() {
               <p className="mt-1 font-medium text-foreground">{printGroups.length}</p>
             </div>
             <div>
-              <p className="label-mono">Range</p>
+              <p className="label-mono">Period</p>
               <p className="mt-1 text-foreground">
-                {printGroups.length > 0
-                  ? `${formatDate(printGroups[0]?.[0])} – ${formatDate(printGroups[printGroups.length - 1]?.[0])}`
-                  : "-"}
+                {printOptions.from && printOptions.to
+                  ? `${formatDate(printOptions.from)} – ${formatDate(printOptions.to)}`
+                  : printGroups.length > 0
+                    ? `${formatDate(printGroups[0]?.[0])} – ${formatDate(printGroups[printGroups.length - 1]?.[0])}`
+                    : "-"}
               </p>
             </div>
           </div>
