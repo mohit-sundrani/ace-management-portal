@@ -458,7 +458,9 @@ function CalendarPage() {
           <div className="flex items-end justify-between border-b-2 border-ink pb-4">
             <div>
               <p className="label-mono">ACE Management</p>
-              <p className="mt-1 font-heading text-3xl leading-snug text-foreground">Calendar</p>
+              <p className="mt-1 font-heading text-3xl leading-snug text-foreground font-bold">
+                Calendar
+              </p>
             </div>
             <p className="label-mono">Generated {format(new Date(), "dd MMM yyyy, HH:mm")}</p>
           </div>
@@ -493,25 +495,50 @@ function CalendarPage() {
             </div>
           </div>
 
-          <div className="mt-6 space-y-6">
+          <div className="relative mt-6">
+            <span aria-hidden className="absolute bottom-1 left-2 top-1 w-px bg-stroke" />
             {printGroups.map(([date, list]) => (
-              <section key={date}>
-                <h4 className="label-mono border-b border-stroke pb-1">{formatDateLong(date)}</h4>
-                <ul className="divide-y divide-stroke">
+              <section key={date} className="relative break-inside-avoid pb-6 pl-10">
+                <span
+                  aria-hidden
+                  className="absolute left-2 top-1.5 size-2 -translate-x-1/2 rounded-full border-2 border-electric bg-white"
+                />
+                <div className="flex items-baseline justify-between gap-3">
+                  <h4 className="font-heading text-base font-bold text-foreground">
+                    {formatDateLong(date)}
+                  </h4>
+                  <span className="label-mono">
+                    {list.length} {list.length === 1 ? "entry" : "entries"}
+                  </span>
+                </div>
+                <ul className="mt-2 space-y-1.5">
                   {list.map((entry) => (
-                    <li key={entry.id} className="flex items-center justify-between gap-3 py-2.5">
-                      <div className="min-w-0">
-                        <p className="truncate text-sm text-foreground">{entry.label}</p>
-                        {entry.time ? (
-                          <p className="label-mono mt-0.5">
-                            {entry.time}
-                            {entry.kind === "item" ? " · calendar item" : ` · ${entry.kind}`}
+                    <li key={entry.id} className="relative">
+                      <span
+                        aria-hidden
+                        className="absolute -left-8 top-4 size-1.5 -translate-x-1/2 rounded-full bg-electric"
+                      />
+                      <span
+                        aria-hidden
+                        className="absolute -left-8 top-[18px] h-px w-8 bg-stroke"
+                      />
+                      <div className="flex items-center justify-between gap-3 rounded-sm border border-stroke bg-beige/40 px-3 py-2">
+                        <div className="min-w-0">
+                          <p className="truncate text-sm font-medium text-foreground">
+                            {entry.label}
                           </p>
-                        ) : (
-                          <p className="label-mono mt-0.5">{entry.kind}</p>
-                        )}
+                          {entry.time ? (
+                            <p className="label-mono mt-0.5">
+                              {entry.time} · {entry.kind}
+                            </p>
+                          ) : (
+                            <p className="label-mono mt-0.5">{entry.kind}</p>
+                          )}
+                        </div>
+                        {entry.kind !== "item" ? (
+                          <StatusBadge tone={kindTone[entry.kind]}>{entry.kind}</StatusBadge>
+                        ) : null}
                       </div>
-                      <StatusBadge tone={kindTone[entry.kind]}>{entry.kind}</StatusBadge>
                     </li>
                   ))}
                 </ul>
