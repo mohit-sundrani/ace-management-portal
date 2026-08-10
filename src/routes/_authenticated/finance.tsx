@@ -29,12 +29,12 @@ import { formatAmount, formatMoney } from "@/lib/money";
 export const Route = createFileRoute("/_authenticated/finance")({
   head: () => ({
     meta: [
-      { title: "Finance overview — Operations Console" },
+      { title: "Finance overview - ACE Management" },
       {
         name: "description",
         content: "Balances, cash flow by month, budget health and the latest ledger entries.",
       },
-      { property: "og:title", content: "Finance overview — Operations Console" },
+      { property: "og:title", content: "Finance overview - ACE Management" },
       {
         property: "og:description",
         content: "The money pillar: balances, flow and budget health.",

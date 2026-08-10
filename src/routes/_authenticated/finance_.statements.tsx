@@ -27,12 +27,12 @@ import { formatMoney, toMinor } from "@/lib/money";
 export const Route = createFileRoute("/_authenticated/finance_/statements")({
   head: () => ({
     meta: [
-      { title: "Statements — Operations Console" },
+      { title: "Statements - ACE Management" },
       {
         name: "description",
         content: "Per-account statements with a running balance across every ledger entry.",
       },
-      { property: "og:title", content: "Statements — Operations Console" },
+      { property: "og:title", content: "Statements - ACE Management" },
       { property: "og:description", content: "Running balance statements per account." },
     ],
   }),
@@ -133,13 +133,13 @@ function StatementsPage() {
       header: "In",
       align: "right",
       cell: (row) =>
-        row.inflow ? <span className="text-success">{formatMoney(row.inflow)}</span> : "—",
+        row.inflow ? <span className="text-success">{formatMoney(row.inflow)}</span> : "-",
     },
     {
       key: "outflow",
       header: "Out",
       align: "right",
-      cell: (row) => (row.outflow ? formatMoney(row.outflow) : "—"),
+      cell: (row) => (row.outflow ? formatMoney(row.outflow) : "-"),
     },
     { key: "balance", header: "Balance", align: "right", cell: (row) => formatMoney(row.balance) },
   ];
@@ -255,11 +255,11 @@ function StatementsPage() {
         </PanelBody>
       </Panel>
 
-      {/* Print-only letterhead — becomes the first page of the exported PDF. */}
+      {/* Print-only letterhead - becomes the first page of the exported PDF. */}
       <div className="hidden print:block">
         <div className="flex items-end justify-between border-b-2 border-ink pb-4">
           <div>
-            <p className="label-mono">Operations Console</p>
+            <p className="label-mono">ACE Management</p>
             <p className="mt-1 font-heading text-3xl leading-snug text-foreground">
               Account statement
             </p>
@@ -269,15 +269,15 @@ function StatementsPage() {
         <div className="flex flex-wrap gap-x-12 gap-y-2 pt-4 text-sm">
           <div>
             <p className="label-mono">Account</p>
-            <p className="mt-1 font-medium text-foreground">{account?.name ?? "—"}</p>
+            <p className="mt-1 font-medium text-foreground">{account?.name ?? "-"}</p>
           </div>
           <div>
             <p className="label-mono">Currency</p>
-            <p className="mt-1 font-mono text-foreground">{account?.currency ?? "—"}</p>
+            <p className="mt-1 font-mono text-foreground">{account?.currency ?? "-"}</p>
           </div>
           <div>
             <p className="label-mono">Holder</p>
-            <p className="mt-1 text-foreground">{profile?.display_name ?? user?.email ?? "—"}</p>
+            <p className="mt-1 text-foreground">{profile?.display_name ?? user?.email ?? "-"}</p>
           </div>
           <div>
             <p className="label-mono">Period</p>
@@ -289,13 +289,13 @@ function StatementsPage() {
       <StatGrid className="xl:grid-cols-3 print:hidden">
         <StatCell
           label="Opening"
-          value={account ? formatMoney(opening, { currency: account.currency }) : "—"}
+          value={account ? formatMoney(opening, { currency: account.currency }) : "-"}
           caption={periodLabel}
         />
         <StatCell label="Entries" value={rows.length} caption="Match the filters" />
         <StatCell
           label="Closing"
-          value={account ? formatMoney(closing, { currency: account.currency }) : "—"}
+          value={account ? formatMoney(closing, { currency: account.currency }) : "-"}
           caption="Balance at period end"
           emphasis
         />

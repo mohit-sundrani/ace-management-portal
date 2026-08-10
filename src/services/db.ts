@@ -19,7 +19,7 @@ export type Recurrence = Enums["recurrence"];
 export type BudgetPeriod = Enums["budget_period"];
 export type AppRole = Enums["app_role"];
 
-/** Friendly messages — raw backend errors are never surfaced to the user. */
+/** Friendly messages - raw backend errors are never surfaced to the user. */
 export class DataError extends Error {
   constructor(message: string) {
     super(message);

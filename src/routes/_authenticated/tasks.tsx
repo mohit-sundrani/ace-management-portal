@@ -20,13 +20,13 @@ import type { Row } from "@/services/db";
 export const Route = createFileRoute("/_authenticated/tasks")({
   head: () => ({
     meta: [
-      { title: "Tasks — Operations Console" },
+      { title: "Tasks - ACE Management" },
       {
         name: "description",
         content:
           "Track every task by status, priority and due date, linked to the event it serves.",
       },
-      { property: "og:title", content: "Tasks — Operations Console" },
+      { property: "og:title", content: "Tasks - ACE Management" },
       {
         property: "og:description",
         content: "Work queue with priorities, due dates and event links.",
@@ -70,7 +70,7 @@ function TasksPage() {
 
   const rows = tasks.data ?? [];
   const eventName = (id: string | null) =>
-    (events.data ?? []).find((event) => event.id === id)?.name ?? "—";
+    (events.data ?? []).find((event) => event.id === id)?.name ?? "-";
 
   const fields: ReadonlyArray<Field> = useMemo(
     () => [
@@ -131,7 +131,7 @@ function TasksPage() {
         return (
           <button
             type="button"
-            title={`${task.status} — click to mark ${next}`}
+            title={`${task.status} - click to mark ${next}`}
             aria-label={`${task.title} is ${task.status}. Click to mark ${next}.`}
             onClick={() =>
               update.mutate({

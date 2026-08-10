@@ -29,12 +29,12 @@ import type { Row } from "@/services/db";
 export const Route = createFileRoute("/_authenticated/finance_/transactions")({
   head: () => ({
     meta: [
-      { title: "Transactions — Operations Console" },
+      { title: "Transactions - ACE Management" },
       {
         name: "description",
         content: "The full ledger: income and expenses with accounts, categories and event links.",
       },
-      { property: "og:title", content: "Transactions — Operations Console" },
+      { property: "og:title", content: "Transactions - ACE Management" },
       { property: "og:description", content: "Every rupee in and out, searchable and linked." },
     ],
   }),
@@ -72,7 +72,7 @@ function TransactionsPage() {
   const nameOf = <T extends { id: string; name: string }>(
     list: ReadonlyArray<T>,
     id: string | null,
-  ) => list.find((entry) => entry.id === id)?.name ?? "—";
+  ) => list.find((entry) => entry.id === id)?.name ?? "-";
 
   const visible = useMemo(() => {
     const term = search.trim().toLowerCase();
@@ -199,7 +199,7 @@ function TransactionsPage() {
             {nameOf(events.data ?? [], txn.event_id)}
           </StatusBadge>
         ) : (
-          "—"
+          "-"
         ),
     },
     {
@@ -236,7 +236,7 @@ function TransactionsPage() {
     <>
       <PageHeader
         title="Transactions"
-        description="Every movement of money, attributed to an account, a category and — where relevant — an event."
+        description="Every movement of money, attributed to an account, a category and - where relevant - an event."
         crumbs={[{ label: "Finance", to: "/finance" }, { label: "Transactions" }]}
         actions={
           <Button onClick={() => setOpen(true)}>
@@ -414,7 +414,7 @@ function TransactionsPage() {
           if (!next) setDeleteTarget(null);
         }}
         title={deleteTarget ? `Delete “${deleteTarget.description}”?` : "Delete transaction"}
-        description="This transaction will be permanently removed and every derived figure — balances, budgets, statements — updates to match."
+        description="This transaction will be permanently removed and every derived figure - balances, budgets, statements - updates to match."
         busy={remove.isPending}
         onConfirm={() => {
           if (deleteTarget) {

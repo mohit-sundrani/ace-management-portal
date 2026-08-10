@@ -200,7 +200,7 @@
   background-color: var(--color-surface);
 }
 
-/* Signature corner ticks — one primary panel per page only. */
+/* Signature corner ticks - one primary panel per page only. */
 @utility ticked {
   position: relative;
 }
@@ -279,7 +279,9 @@
     --nickel: #1f2937;
     --stroke: #d1d5db;
     --ink: #111827;
+    --electric: #6d28d9;
     --success: #15803d;
+    --warning: #b45309;
     --danger: #b91c1c;
   }
 

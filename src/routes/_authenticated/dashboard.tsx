@@ -29,12 +29,12 @@ import { formatAmount, formatMoney, toMinor } from "@/lib/money";
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({
     meta: [
-      { title: "Dashboard — Operations Console" },
+      { title: "Dashboard - ACE Management" },
       {
         name: "description",
         content: "Live snapshot of balances, cash flow, active events and open tasks.",
       },
-      { property: "og:title", content: "Dashboard — Operations Console" },
+      { property: "og:title", content: "Dashboard - ACE Management" },
       { property: "og:description", content: "Balances, cash flow, events and tasks at a glance." },
     ],
   }),

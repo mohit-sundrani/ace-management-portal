@@ -19,13 +19,13 @@ import type { Row } from "@/services/db";
 export const Route = createFileRoute("/_authenticated/finance_/accounts")({
   head: () => ({
     meta: [
-      { title: "Accounts — Operations Console" },
+      { title: "Accounts - ACE Management" },
       {
         name: "description",
         content:
           "Cash, bank, savings and card accounts with live balances derived from the ledger.",
       },
-      { property: "og:title", content: "Accounts — Operations Console" },
+      { property: "og:title", content: "Accounts - ACE Management" },
       { property: "og:description", content: "Live balances across every account you hold." },
     ],
   }),
@@ -204,7 +204,7 @@ function AccountsPage() {
           if (!next) setEditing(null);
         }}
         title="Edit account"
-        description="Balances stay derived — changing the opening balance re-bases every figure."
+        description="Balances stay derived - changing the opening balance re-bases every figure."
         fields={fields}
         initial={editing}
         submitLabel="Save changes"

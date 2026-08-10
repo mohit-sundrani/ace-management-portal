@@ -19,12 +19,12 @@ import type { Row } from "@/services/db";
 export const Route = createFileRoute("/_authenticated/events")({
   head: () => ({
     meta: [
-      { title: "Events — Operations Console" },
+      { title: "Events - ACE Management" },
       {
         name: "description",
         content: "Plan events end to end: budgets, vendors, guests, payments and linked tasks.",
       },
-      { property: "og:title", content: "Events — Operations Console" },
+      { property: "og:title", content: "Events - ACE Management" },
       { property: "og:description", content: "Every event with its budget and execution status." },
     ],
   }),

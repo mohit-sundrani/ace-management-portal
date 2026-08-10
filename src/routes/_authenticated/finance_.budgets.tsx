@@ -19,12 +19,12 @@ import type { Row } from "@/services/db";
 export const Route = createFileRoute("/_authenticated/finance_/budgets")({
   head: () => ({
     meta: [
-      { title: "Budgets — Operations Console" },
+      { title: "Budgets - ACE Management" },
       {
         name: "description",
         content: "Monthly, yearly and custom budgets measured against real spend from the ledger.",
       },
-      { property: "og:title", content: "Budgets — Operations Console" },
+      { property: "og:title", content: "Budgets - ACE Management" },
       { property: "og:description", content: "Plan versus actual, category by category." },
     ],
   }),

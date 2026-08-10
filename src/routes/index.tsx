@@ -13,13 +13,13 @@ import { useAuth } from "@/hooks/use-auth";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Operations Console — plan events, run tasks, own the numbers" },
+      { title: "ACE Management - plan events, run tasks, own the numbers" },
       {
         name: "description",
         content:
           "One workspace for events, tasks, calendar and finance. Every transaction links back to the event, budget and account it belongs to.",
       },
-      { property: "og:title", content: "Operations Console" },
+      { property: "og:title", content: "ACE Management" },
       {
         property: "og:description",
         content: "Events, tasks, calendar and double-checked finance in one operations workspace.",
@@ -62,7 +62,7 @@ function Landing() {
           <span className="grid size-7 place-items-center rounded-sm bg-electric font-mono text-xs text-white">
             OC
           </span>
-          <span className="font-heading text-sm text-foreground">Operations Console</span>
+          <span className="font-heading text-sm text-foreground">ACE Management</span>
         </div>
         <Button asChild variant="default" size="sm">
           <Link to={session ? "/dashboard" : "/auth"}>
@@ -77,8 +77,8 @@ function Landing() {
           Everything you're running, with the money attached.
         </h1>
         <p className="mt-5 max-w-2xl text-base text-grey">
-          Operations Console links events, tasks, the calendar and your accounts into a single
-          ledger-backed workspace — so a vendor payment, its budget line and its deadline are never
+          ACE Management links events, tasks, the calendar and your accounts into a single
+          ledger-backed workspace - so a vendor payment, its budget line and its deadline are never
           three disconnected notes.
         </p>
         <div className="mt-8 flex flex-wrap gap-3">

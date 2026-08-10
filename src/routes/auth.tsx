@@ -7,19 +7,17 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAuth } from "@/hooks/use-auth";
-import { lovable } from "@/integrations/lovable/index";
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Sign in — Operations Console" },
+      { title: "Sign in - ACE Management" },
       {
         name: "description",
-        content:
-          "Sign in to your Operations Console workspace to manage events, tasks and finance.",
+        content: "Sign in to your ACE Management workspace to manage events, tasks and finance.",
       },
-      { property: "og:title", content: "Sign in — Operations Console" },
+      { property: "og:title", content: "Sign in - ACE Management" },
       { property: "og:description", content: "Access your personal operations workspace." },
     ],
   }),
@@ -67,18 +65,6 @@ function AuthPage() {
     toast.success("Account created. Check your inbox if confirmation is required.");
   };
 
-  const google = async () => {
-    const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: window.location.origin,
-    });
-    if (result.error) {
-      toast.error("Google sign-in failed. Please try again.");
-      return;
-    }
-    if (result.redirected) return;
-    void navigate({ to: "/dashboard" });
-  };
-
   return (
     <div className="grid min-h-screen bg-background lg:grid-cols-2">
       <section className="hidden flex-col justify-between border-r border-stroke bg-beige p-12 lg:flex">
@@ -86,7 +72,7 @@ function AuthPage() {
           <span className="grid size-7 place-items-center rounded-sm bg-electric font-mono text-xs text-white">
             OC
           </span>
-          <span className="font-heading text-sm text-foreground">Operations Console</span>
+          <span className="font-heading text-sm text-foreground">ACE Management</span>
         </div>
         <div className="max-w-md">
           <p className="label-mono">Systems-grade personal ops</p>
@@ -105,10 +91,6 @@ function AuthPage() {
         <div className="panel ticked w-full max-w-md p-8">
           <p className="label-mono">Access</p>
           <h1 className="mt-2 font-heading text-2xl text-foreground">Sign in to your console</h1>
-
-          <Button onClick={() => void google()} className="mt-6 w-full" size="lg">
-            Continue with Google
-          </Button>
 
           <div className="my-6 flex items-center gap-3">
             <span className="h-px flex-1 bg-stroke" />

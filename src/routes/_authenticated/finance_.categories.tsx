@@ -18,12 +18,12 @@ import type { Row } from "@/services/db";
 export const Route = createFileRoute("/_authenticated/finance_/categories")({
   head: () => ({
     meta: [
-      { title: "Categories — Operations Console" },
+      { title: "Categories - ACE Management" },
       {
         name: "description",
         content: "Income and expense categories that drive budgets, reports and statements.",
       },
-      { property: "og:title", content: "Categories — Operations Console" },
+      { property: "og:title", content: "Categories - ACE Management" },
       { property: "og:description", content: "The taxonomy behind every report." },
     ],
   }),

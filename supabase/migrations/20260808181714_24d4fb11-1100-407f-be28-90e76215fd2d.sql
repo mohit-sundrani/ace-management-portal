@@ -301,138 +301,138 @@ end $$;
 create trigger trg_profiles_updated before update on public.profiles for each row execute function public.set_updated_at();
 
 -- SEED + NEW USER BOOTSTRAP
-create or replace function public.seed_workspace(_uid uuid)
-returns void language plpgsql security definer set search_path = public as $$
-declare
-  acc_bank uuid; acc_cash uuid; acc_sav uuid;
-  cat_salary uuid; cat_free uuid; cat_evinc uuid; cat_spon uuid;
-  cat_food uuid; cat_transport uuid; cat_util uuid; cat_venue uuid; cat_mkt uuid; cat_equip uuid;
-  pm_upi uuid; pm_bank uuid; pm_cash uuid; pm_card uuid;
-  ev_fest uuid; ev_trip uuid; ev_work uuid;
-  ven_sound uuid; ven_cater uuid;
-  today date := current_date;
-begin
-  insert into public.financial_accounts (user_id,name,type,opening_balance,description)
-  values (_uid,'HDFC Current','bank',185000,'Primary operating account') returning id into acc_bank;
-  insert into public.financial_accounts (user_id,name,type,opening_balance,description)
-  values (_uid,'Cash Wallet','cash',12000,'Petty cash for on-ground spending') returning id into acc_cash;
-  insert into public.financial_accounts (user_id,name,type,opening_balance,description)
-  values (_uid,'Emergency Savings','savings',240000,'Six-month runway, untouched') returning id into acc_sav;
+-- create or replace function public.seed_workspace(_uid uuid)
+-- returns void language plpgsql security definer set search_path = public as $$
+-- declare
+--   acc_bank uuid; acc_cash uuid; acc_sav uuid;
+--   cat_salary uuid; cat_free uuid; cat_evinc uuid; cat_spon uuid;
+--   cat_food uuid; cat_transport uuid; cat_util uuid; cat_venue uuid; cat_mkt uuid; cat_equip uuid;
+--   pm_upi uuid; pm_bank uuid; pm_cash uuid; pm_card uuid;
+--   ev_fest uuid; ev_trip uuid; ev_work uuid;
+--   ven_sound uuid; ven_cater uuid;
+--   today date := current_date;
+-- begin
+--   insert into public.financial_accounts (user_id,name,type,opening_balance,description)
+--   values (_uid,'HDFC Current','bank',185000,'Primary operating account') returning id into acc_bank;
+--   insert into public.financial_accounts (user_id,name,type,opening_balance,description)
+--   values (_uid,'Cash Wallet','cash',12000,'Petty cash for on-ground spending') returning id into acc_cash;
+--   insert into public.financial_accounts (user_id,name,type,opening_balance,description)
+--   values (_uid,'Emergency Savings','savings',240000,'Six-month runway, untouched') returning id into acc_sav;
 
-  insert into public.categories (user_id,name,kind,color) values
-    (_uid,'Salary','income','#00B442') returning id into cat_salary;
-  insert into public.categories (user_id,name,kind,color) values (_uid,'Freelance','income','#32F3E9') returning id into cat_free;
-  insert into public.categories (user_id,name,kind,color) values (_uid,'Event Income','income','#22FF73') returning id into cat_evinc;
-  insert into public.categories (user_id,name,kind,color) values (_uid,'Sponsorship','income','#6C3BFF') returning id into cat_spon;
-  insert into public.categories (user_id,name,kind,color) values (_uid,'Food','expense','#F5A623') returning id into cat_food;
-  insert into public.categories (user_id,name,kind,color) values (_uid,'Transport','expense','#863BFF') returning id into cat_transport;
-  insert into public.categories (user_id,name,kind,color) values (_uid,'Utilities','expense','#867E8E') returning id into cat_util;
-  insert into public.categories (user_id,name,kind,color) values (_uid,'Venue','expense','#E5484D') returning id into cat_venue;
-  insert into public.categories (user_id,name,kind,color) values (_uid,'Marketing','expense','#B39AFF') returning id into cat_mkt;
-  insert into public.categories (user_id,name,kind,color) values (_uid,'Equipment','expense','#3B3440') returning id into cat_equip;
+--   insert into public.categories (user_id,name,kind,color) values
+--     (_uid,'Salary','income','#00B442') returning id into cat_salary;
+--   insert into public.categories (user_id,name,kind,color) values (_uid,'Freelance','income','#32F3E9') returning id into cat_free;
+--   insert into public.categories (user_id,name,kind,color) values (_uid,'Event Income','income','#22FF73') returning id into cat_evinc;
+--   insert into public.categories (user_id,name,kind,color) values (_uid,'Sponsorship','income','#6C3BFF') returning id into cat_spon;
+--   insert into public.categories (user_id,name,kind,color) values (_uid,'Food','expense','#F5A623') returning id into cat_food;
+--   insert into public.categories (user_id,name,kind,color) values (_uid,'Transport','expense','#863BFF') returning id into cat_transport;
+--   insert into public.categories (user_id,name,kind,color) values (_uid,'Utilities','expense','#867E8E') returning id into cat_util;
+--   insert into public.categories (user_id,name,kind,color) values (_uid,'Venue','expense','#E5484D') returning id into cat_venue;
+--   insert into public.categories (user_id,name,kind,color) values (_uid,'Marketing','expense','#B39AFF') returning id into cat_mkt;
+--   insert into public.categories (user_id,name,kind,color) values (_uid,'Equipment','expense','#3B3440') returning id into cat_equip;
 
-  insert into public.payment_methods (user_id,name) values (_uid,'UPI') returning id into pm_upi;
-  insert into public.payment_methods (user_id,name) values (_uid,'Bank Transfer') returning id into pm_bank;
-  insert into public.payment_methods (user_id,name) values (_uid,'Cash') returning id into pm_cash;
-  insert into public.payment_methods (user_id,name) values (_uid,'Credit Card') returning id into pm_card;
+--   insert into public.payment_methods (user_id,name) values (_uid,'UPI') returning id into pm_upi;
+--   insert into public.payment_methods (user_id,name) values (_uid,'Bank Transfer') returning id into pm_bank;
+--   insert into public.payment_methods (user_id,name) values (_uid,'Cash') returning id into pm_cash;
+--   insert into public.payment_methods (user_id,name) values (_uid,'Credit Card') returning id into pm_card;
 
-  insert into public.events (user_id,name,description,start_date,end_date,location,status,planned_budget,notes)
-  values (_uid,'Annual College Fest','Three-day inter-college cultural and tech festival.',today + 24, today + 26,'Main Campus Grounds','active',750000,'Sponsor deck locked. Stage layout pending approval.')
-  returning id into ev_fest;
-  insert into public.events (user_id,name,description,start_date,end_date,location,status,planned_budget,notes)
-  values (_uid,'Kerala Backwaters Trip','Seven-day travel plan with four people.',today + 68, today + 75,'Alleppey, Kerala','planning',96000,'Houseboat booking window opens next month.')
-  returning id into ev_trip;
-  insert into public.events (user_id,name,description,start_date,end_date,location,status,planned_budget,notes)
-  values (_uid,'Rust Tooling Workshop','One-day paid workshop for 40 engineers.',today - 21, today - 21,'WeWork Koramangala','completed',120000,'Sold out. Feedback average 4.6/5.')
-  returning id into ev_work;
+--   insert into public.events (user_id,name,description,start_date,end_date,location,status,planned_budget,notes)
+--   values (_uid,'Annual College Fest','Three-day inter-college cultural and tech festival.',today + 24, today + 26,'Main Campus Grounds','active',750000,'Sponsor deck locked. Stage layout pending approval.')
+--   returning id into ev_fest;
+--   insert into public.events (user_id,name,description,start_date,end_date,location,status,planned_budget,notes)
+--   values (_uid,'Kerala Backwaters Trip','Seven-day travel plan with four people.',today + 68, today + 75,'Alleppey, Kerala','planning',96000,'Houseboat booking window opens next month.')
+--   returning id into ev_trip;
+--   insert into public.events (user_id,name,description,start_date,end_date,location,status,planned_budget,notes)
+--   values (_uid,'Rust Tooling Workshop','One-day paid workshop for 40 engineers.',today - 21, today - 21,'WeWork Koramangala','completed',120000,'Sold out. Feedback average 4.6/5.')
+--   returning id into ev_work;
 
-  insert into public.event_budget_items (user_id,event_id,kind,label,planned_amount,category_id) values
-    (_uid,ev_fest,'income','Ticket sales',320000,cat_evinc),
-    (_uid,ev_fest,'income','Title sponsor',250000,cat_spon),
-    (_uid,ev_fest,'income','Stall registrations',90000,cat_evinc),
-    (_uid,ev_fest,'expense','Venue and stage',280000,cat_venue),
-    (_uid,ev_fest,'expense','Sound and lighting',150000,cat_equip),
-    (_uid,ev_fest,'expense','Catering',120000,cat_food),
-    (_uid,ev_fest,'expense','Marketing and print',70000,cat_mkt),
-    (_uid,ev_trip,'expense','Houseboat',48000,cat_venue),
-    (_uid,ev_trip,'expense','Travel',28000,cat_transport),
-    (_uid,ev_work,'income','Seat sales',160000,cat_evinc),
-    (_uid,ev_work,'expense','Venue hire',35000,cat_venue),
-    (_uid,ev_work,'expense','Lunch and coffee',24000,cat_food);
+--   insert into public.event_budget_items (user_id,event_id,kind,label,planned_amount,category_id) values
+--     (_uid,ev_fest,'income','Ticket sales',320000,cat_evinc),
+--     (_uid,ev_fest,'income','Title sponsor',250000,cat_spon),
+--     (_uid,ev_fest,'income','Stall registrations',90000,cat_evinc),
+--     (_uid,ev_fest,'expense','Venue and stage',280000,cat_venue),
+--     (_uid,ev_fest,'expense','Sound and lighting',150000,cat_equip),
+--     (_uid,ev_fest,'expense','Catering',120000,cat_food),
+--     (_uid,ev_fest,'expense','Marketing and print',70000,cat_mkt),
+--     (_uid,ev_trip,'expense','Houseboat',48000,cat_venue),
+--     (_uid,ev_trip,'expense','Travel',28000,cat_transport),
+--     (_uid,ev_work,'income','Seat sales',160000,cat_evinc),
+--     (_uid,ev_work,'expense','Venue hire',35000,cat_venue),
+--     (_uid,ev_work,'expense','Lunch and coffee',24000,cat_food);
 
-  insert into public.event_guests (user_id,event_id,name,contact,rsvp,party_size,notes) values
-    (_uid,ev_fest,'Dr. Anitha Raghavan','anitha.r@campus.edu','confirmed',2,'Chief guest, needs reserved parking'),
-    (_uid,ev_fest,'Karthik Menon','karthik@northbridge.io','confirmed',1,'Title sponsor representative'),
-    (_uid,ev_fest,'Sneha Iyer','sneha.iyer@gmail.com','tentative',3,'Alumni panel'),
-    (_uid,ev_fest,'Rahul Deshpande','rahul.d@techpress.in','invited',1,'Press coverage'),
-    (_uid,ev_work,'Priya Nair','priya@rustlabs.dev','attended',1,'Guest instructor');
+--   insert into public.event_guests (user_id,event_id,name,contact,rsvp,party_size,notes) values
+--     (_uid,ev_fest,'Dr. Anitha Raghavan','anitha.r@campus.edu','confirmed',2,'Chief guest, needs reserved parking'),
+--     (_uid,ev_fest,'Karthik Menon','karthik@northbridge.io','confirmed',1,'Title sponsor representative'),
+--     (_uid,ev_fest,'Sneha Iyer','sneha.iyer@gmail.com','tentative',3,'Alumni panel'),
+--     (_uid,ev_fest,'Rahul Deshpande','rahul.d@techpress.in','invited',1,'Press coverage'),
+--     (_uid,ev_work,'Priya Nair','priya@rustlabs.dev','attended',1,'Guest instructor');
 
-  insert into public.event_vendors (user_id,event_id,name,service,contact,agreed_amount,paid_amount,notes)
-  values (_uid,ev_fest,'Nova Sound Systems','Sound and lighting','+91 98450 11223',150000,60000,'40% advance paid')
-  returning id into ven_sound;
-  insert into public.event_vendors (user_id,event_id,name,service,contact,agreed_amount,paid_amount,notes)
-  values (_uid,ev_fest,'Green Leaf Catering','Catering for 900 pax','+91 99010 44521',120000,0,'Menu tasting scheduled')
-  returning id into ven_cater;
-  insert into public.event_vendors (user_id,event_id,name,service,contact,agreed_amount,paid_amount,notes) values
-    (_uid,ev_fest,'PrintWorks','Banners and passes','+91 97400 88110',48000,48000,'Delivered'),
-    (_uid,ev_trip,'Alleppey Houseboats','Two-night houseboat','+91 94470 33221',48000,10000,'Advance blocked');
+--   insert into public.event_vendors (user_id,event_id,name,service,contact,agreed_amount,paid_amount,notes)
+--   values (_uid,ev_fest,'Nova Sound Systems','Sound and lighting','+91 98450 11223',150000,60000,'40% advance paid')
+--   returning id into ven_sound;
+--   insert into public.event_vendors (user_id,event_id,name,service,contact,agreed_amount,paid_amount,notes)
+--   values (_uid,ev_fest,'Green Leaf Catering','Catering for 900 pax','+91 99010 44521',120000,0,'Menu tasting scheduled')
+--   returning id into ven_cater;
+--   insert into public.event_vendors (user_id,event_id,name,service,contact,agreed_amount,paid_amount,notes) values
+--     (_uid,ev_fest,'PrintWorks','Banners and passes','+91 97400 88110',48000,48000,'Delivered'),
+--     (_uid,ev_trip,'Alleppey Houseboats','Two-night houseboat','+91 94470 33221',48000,10000,'Advance blocked');
 
-  insert into public.event_payments (user_id,event_id,vendor_id,label,direction,planned_amount,paid_amount,due_date,paid_on,status) values
-    (_uid,ev_fest,ven_sound,'Sound advance','expense',60000,60000,today - 6,today - 6,'paid'),
-    (_uid,ev_fest,ven_sound,'Sound balance','expense',90000,0,today + 20,null,'unpaid'),
-    (_uid,ev_fest,ven_cater,'Catering advance','expense',48000,0,today + 3,null,'unpaid'),
-    (_uid,ev_fest,null,'Title sponsor tranche 1','income',150000,150000,today - 12,today - 12,'paid'),
-    (_uid,ev_fest,null,'Venue final settlement','expense',180000,0,today + 18,null,'unpaid');
+--   insert into public.event_payments (user_id,event_id,vendor_id,label,direction,planned_amount,paid_amount,due_date,paid_on,status) values
+--     (_uid,ev_fest,ven_sound,'Sound advance','expense',60000,60000,today - 6,today - 6,'paid'),
+--     (_uid,ev_fest,ven_sound,'Sound balance','expense',90000,0,today + 20,null,'unpaid'),
+--     (_uid,ev_fest,ven_cater,'Catering advance','expense',48000,0,today + 3,null,'unpaid'),
+--     (_uid,ev_fest,null,'Title sponsor tranche 1','income',150000,150000,today - 12,today - 12,'paid'),
+--     (_uid,ev_fest,null,'Venue final settlement','expense',180000,0,today + 18,null,'unpaid');
 
-  insert into public.tasks (user_id,title,description,status,priority,due_date,scheduled_date,start_time,end_time,category,event_id) values
-    (_uid,'Finalise venue booking','Confirm the ground permit and stage footprint with the estate office.','ongoing','high',today + 4,today + 1,'10:00','11:00','Logistics',ev_fest),
-    (_uid,'Contact remaining sponsors','Follow up with three warm leads from last year.','ongoing','high',today + 6,today + 2,'15:00','16:30','Sponsorship',ev_fest),
-    (_uid,'Approve poster artwork','Second revision from the design team.','todo','medium',today + 8,today + 3,'12:00','12:30','Marketing',ev_fest),
-    (_uid,'Pay catering advance','Release 40% to Green Leaf before menu lock.','todo','high',today + 3,today,'14:00','14:30','Finance',ev_fest),
-    (_uid,'Book houseboat','Compare three operators before paying advance.','todo','medium',today + 30,today + 12,null,null,'Travel',ev_trip),
-    (_uid,'Reconcile August statement','Match bank entries against recorded transactions.','todo','medium',today - 2,today,'17:00','18:00','Finance',null),
-    (_uid,'Workshop feedback summary','Compile responses and publish internally.','complete','low',today - 18,today - 18,null,null,'Reporting',ev_work),
-    (_uid,'Renew domain and hosting','Annual renewal for the personal site.','todo','low',today + 14,null,null,null,'Admin',null);
+--   insert into public.tasks (user_id,title,description,status,priority,due_date,scheduled_date,start_time,end_time,category,event_id) values
+--     (_uid,'Finalise venue booking','Confirm the ground permit and stage footprint with the estate office.','ongoing','high',today + 4,today + 1,'10:00','11:00','Logistics',ev_fest),
+--     (_uid,'Contact remaining sponsors','Follow up with three warm leads from last year.','ongoing','high',today + 6,today + 2,'15:00','16:30','Sponsorship',ev_fest),
+--     (_uid,'Approve poster artwork','Second revision from the design team.','todo','medium',today + 8,today + 3,'12:00','12:30','Marketing',ev_fest),
+--     (_uid,'Pay catering advance','Release 40% to Green Leaf before menu lock.','todo','high',today + 3,today,'14:00','14:30','Finance',ev_fest),
+--     (_uid,'Book houseboat','Compare three operators before paying advance.','todo','medium',today + 30,today + 12,null,null,'Travel',ev_trip),
+--     (_uid,'Reconcile August statement','Match bank entries against recorded transactions.','todo','medium',today - 2,today,'17:00','18:00','Finance',null),
+--     (_uid,'Workshop feedback summary','Compile responses and publish internally.','complete','low',today - 18,today - 18,null,null,'Reporting',ev_work),
+--     (_uid,'Renew domain and hosting','Annual renewal for the personal site.','todo','low',today + 14,null,null,null,'Admin',null);
 
-  update public.tasks set completed_at = now() - interval '18 days' where user_id = _uid and status = 'complete';
+--   update public.tasks set completed_at = now() - interval '18 days' where user_id = _uid and status = 'complete';
 
-  insert into public.calendar_items (user_id,title,description,start_date,start_time,end_date,end_time,all_day,location,event_id) values
-    (_uid,'Review event budget','Walk through planned vs actual with the finance lead.',today,'09:00',today,'10:00',false,'Finance room',ev_fest),
-    (_uid,'Vendor meeting — Nova Sound','Stage plot and power requirements.',today,'11:00',today,'12:00',false,'Campus AV room',ev_fest),
-    (_uid,'Pay venue instalment','Bank transfer window.',today,'14:00',today,'14:30',false,null,ev_fest),
-    (_uid,'Sponsor call — Northbridge','Tranche 2 timing.',today + 2,'16:00',today + 2,'16:45',false,'Google Meet',ev_fest),
-    (_uid,'Equipment pickup',null,today + 5,null,today + 5,null,true,'Nova warehouse',ev_fest),
-    (_uid,'Monthly finance review','Close the books for the month.',today + 9,'17:00',today + 9,'18:00',false,null,null),
-    (_uid,'Annual College Fest — Day 1',null,today + 24,null,today + 24,null,true,'Main Campus Grounds',ev_fest);
+--   insert into public.calendar_items (user_id,title,description,start_date,start_time,end_date,end_time,all_day,location,event_id) values
+--     (_uid,'Review event budget','Walk through planned vs actual with the finance lead.',today,'09:00',today,'10:00',false,'Finance room',ev_fest),
+--     (_uid,'Vendor meeting - Nova Sound','Stage plot and power requirements.',today,'11:00',today,'12:00',false,'Campus AV room',ev_fest),
+--     (_uid,'Pay venue instalment','Bank transfer window.',today,'14:00',today,'14:30',false,null,ev_fest),
+--     (_uid,'Sponsor call - Northbridge','Tranche 2 timing.',today + 2,'16:00',today + 2,'16:45',false,'Google Meet',ev_fest),
+--     (_uid,'Equipment pickup',null,today + 5,null,today + 5,null,true,'Nova warehouse',ev_fest),
+--     (_uid,'Monthly finance review','Close the books for the month.',today + 9,'17:00',today + 9,'18:00',false,null,null),
+--     (_uid,'Annual College Fest - Day 1',null,today + 24,null,today + 24,null,true,'Main Campus Grounds',ev_fest);
 
-  insert into public.transactions (user_id,type,amount,occurred_on,description,account_id,category_id,payment_method_id,event_id,reference) values
-    (_uid,'income',95000,today - 32,'Monthly salary',acc_bank,cat_salary,pm_bank,null,'SAL-0824'),
-    (_uid,'income',95000,today - 2,'Monthly salary',acc_bank,cat_salary,pm_bank,null,'SAL-0924'),
-    (_uid,'income',48000,today - 15,'Frontend consulting retainer',acc_bank,cat_free,pm_bank,null,'INV-231'),
-    (_uid,'income',150000,today - 12,'Title sponsor tranche 1',acc_bank,cat_spon,pm_bank,ev_fest,'SPON-01'),
-    (_uid,'income',62000,today - 9,'Early-bird ticket sales',acc_bank,cat_evinc,pm_upi,ev_fest,'TKT-EB'),
-    (_uid,'income',160000,today - 21,'Workshop seat sales',acc_bank,cat_evinc,pm_upi,ev_work,'WS-SEATS'),
-    (_uid,'expense',60000,today - 6,'Nova Sound advance',acc_bank,cat_equip,pm_bank,ev_fest,'VEN-NS-01'),
-    (_uid,'expense',48000,today - 4,'Banners, passes and print',acc_bank,cat_mkt,pm_upi,ev_fest,'PRT-118'),
-    (_uid,'expense',100000,today - 8,'Venue booking advance',acc_bank,cat_venue,pm_bank,ev_fest,'VEN-GRD'),
-    (_uid,'expense',35000,today - 21,'Workshop venue hire',acc_bank,cat_venue,pm_bank,ev_work,'WS-VEN'),
-    (_uid,'expense',22400,today - 21,'Workshop lunch and coffee',acc_bank,cat_food,pm_card,ev_work,'WS-FNB'),
-    (_uid,'expense',7800,today - 3,'Groceries and household',acc_cash,cat_food,pm_cash,null,null),
-    (_uid,'expense',3200,today - 1,'Cab and metro',acc_cash,cat_transport,pm_upi,null,null),
-    (_uid,'expense',5400,today - 5,'Electricity and broadband',acc_bank,cat_util,pm_upi,null,'UTL-09'),
-    (_uid,'expense',10000,today - 7,'Houseboat advance',acc_bank,cat_venue,pm_upi,ev_trip,'HB-ADV');
+--   insert into public.transactions (user_id,type,amount,occurred_on,description,account_id,category_id,payment_method_id,event_id,reference) values
+--     (_uid,'income',95000,today - 32,'Monthly salary',acc_bank,cat_salary,pm_bank,null,'SAL-0824'),
+--     (_uid,'income',95000,today - 2,'Monthly salary',acc_bank,cat_salary,pm_bank,null,'SAL-0924'),
+--     (_uid,'income',48000,today - 15,'Frontend consulting retainer',acc_bank,cat_free,pm_bank,null,'INV-231'),
+--     (_uid,'income',150000,today - 12,'Title sponsor tranche 1',acc_bank,cat_spon,pm_bank,ev_fest,'SPON-01'),
+--     (_uid,'income',62000,today - 9,'Early-bird ticket sales',acc_bank,cat_evinc,pm_upi,ev_fest,'TKT-EB'),
+--     (_uid,'income',160000,today - 21,'Workshop seat sales',acc_bank,cat_evinc,pm_upi,ev_work,'WS-SEATS'),
+--     (_uid,'expense',60000,today - 6,'Nova Sound advance',acc_bank,cat_equip,pm_bank,ev_fest,'VEN-NS-01'),
+--     (_uid,'expense',48000,today - 4,'Banners, passes and print',acc_bank,cat_mkt,pm_upi,ev_fest,'PRT-118'),
+--     (_uid,'expense',100000,today - 8,'Venue booking advance',acc_bank,cat_venue,pm_bank,ev_fest,'VEN-GRD'),
+--     (_uid,'expense',35000,today - 21,'Workshop venue hire',acc_bank,cat_venue,pm_bank,ev_work,'WS-VEN'),
+--     (_uid,'expense',22400,today - 21,'Workshop lunch and coffee',acc_bank,cat_food,pm_card,ev_work,'WS-FNB'),
+--     (_uid,'expense',7800,today - 3,'Groceries and household',acc_cash,cat_food,pm_cash,null,null),
+--     (_uid,'expense',3200,today - 1,'Cab and metro',acc_cash,cat_transport,pm_upi,null,null),
+--     (_uid,'expense',5400,today - 5,'Electricity and broadband',acc_bank,cat_util,pm_upi,null,'UTL-09'),
+--     (_uid,'expense',10000,today - 7,'Houseboat advance',acc_bank,cat_venue,pm_upi,ev_trip,'HB-ADV');
 
-  insert into public.recurring_transactions (user_id,name,type,amount,frequency,next_run_on,account_id,category_id,notes) values
-    (_uid,'Monthly salary','income',95000,'monthly',date_trunc('month',today)::date + interval '1 month',acc_bank,cat_salary,'Credited on the 1st'),
-    (_uid,'Rent','expense',28000,'monthly',date_trunc('month',today)::date + interval '1 month',acc_bank,cat_util,'Auto-debit'),
-    (_uid,'Cloud subscriptions','expense',4200,'monthly',date_trunc('month',today)::date + interval '1 month',acc_bank,cat_util,'Hosting and storage');
+--   insert into public.recurring_transactions (user_id,name,type,amount,frequency,next_run_on,account_id,category_id,notes) values
+--     (_uid,'Monthly salary','income',95000,'monthly',date_trunc('month',today)::date + interval '1 month',acc_bank,cat_salary,'Credited on the 1st'),
+--     (_uid,'Rent','expense',28000,'monthly',date_trunc('month',today)::date + interval '1 month',acc_bank,cat_util,'Auto-debit'),
+--     (_uid,'Cloud subscriptions','expense',4200,'monthly',date_trunc('month',today)::date + interval '1 month',acc_bank,cat_util,'Hosting and storage');
 
-  insert into public.budgets (user_id,name,period,start_date,end_date,planned_amount,category_id) values
-    (_uid,'Monthly food','monthly',date_trunc('month',today)::date,(date_trunc('month',today) + interval '1 month - 1 day')::date,15000,cat_food),
-    (_uid,'Monthly transport','monthly',date_trunc('month',today)::date,(date_trunc('month',today) + interval '1 month - 1 day')::date,6000,cat_transport),
-    (_uid,'Monthly utilities','monthly',date_trunc('month',today)::date,(date_trunc('month',today) + interval '1 month - 1 day')::date,8000,cat_util),
-    (_uid,'Fest marketing cap','custom',today - 30,today + 30,70000,cat_mkt);
-end $$;
+--   insert into public.budgets (user_id,name,period,start_date,end_date,planned_amount,category_id) values
+--     (_uid,'Monthly food','monthly',date_trunc('month',today)::date,(date_trunc('month',today) + interval '1 month - 1 day')::date,15000,cat_food),
+--     (_uid,'Monthly transport','monthly',date_trunc('month',today)::date,(date_trunc('month',today) + interval '1 month - 1 day')::date,6000,cat_transport),
+--     (_uid,'Monthly utilities','monthly',date_trunc('month',today)::date,(date_trunc('month',today) + interval '1 month - 1 day')::date,8000,cat_util),
+--     (_uid,'Fest marketing cap','custom',today - 30,today + 30,70000,cat_mkt);
+-- end $$;
 
 create or replace function public.handle_new_user() returns trigger
 language plpgsql security definer set search_path = public as $$

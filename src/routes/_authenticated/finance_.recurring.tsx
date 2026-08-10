@@ -19,13 +19,13 @@ import type { Row } from "@/services/db";
 export const Route = createFileRoute("/_authenticated/finance_/recurring")({
   head: () => ({
     meta: [
-      { title: "Recurring — Operations Console" },
+      { title: "Recurring - ACE Management" },
       {
         name: "description",
         content:
           "Salary, rent, subscriptions and bills as recurring rules, separate from generated transactions.",
       },
-      { property: "og:title", content: "Recurring — Operations Console" },
+      { property: "og:title", content: "Recurring - ACE Management" },
       { property: "og:description", content: "Rules for money that moves on a schedule." },
     ],
   }),
@@ -70,7 +70,7 @@ function RecurringPage() {
   const nameOf = <T extends { id: string; name: string }>(
     list: ReadonlyArray<T>,
     id: string | null,
-  ) => list.find((entry) => entry.id === id)?.name ?? "—";
+  ) => list.find((entry) => entry.id === id)?.name ?? "-";
 
   const fields: ReadonlyArray<Field> = useMemo(
     () => [
@@ -217,7 +217,7 @@ function RecurringPage() {
     <>
       <PageHeader
         title="Recurring"
-        description="Rules for money that moves on a schedule — the generated transactions stay separate."
+        description="Rules for money that moves on a schedule - the generated transactions stay separate."
         crumbs={[{ label: "Finance", to: "/finance" }, { label: "Recurring" }]}
         actions={
           <Button onClick={() => setOpen(true)}>
@@ -237,7 +237,7 @@ function RecurringPage() {
         <StatCell label="Paused" value={rows.length - active.length} caption="Kept for later" />
         <StatCell
           label="Next run"
-          value={nextRun ? formatDate(nextRun) : "—"}
+          value={nextRun ? formatDate(nextRun) : "-"}
           caption="Earliest active"
         />
       </StatGrid>
@@ -251,7 +251,7 @@ function RecurringPage() {
             icon={RefreshCcw}
             eyebrow="No rules"
             title="Set up a recurring rule"
-            description="Salary, rent and subscriptions repeat — define them once here."
+            description="Salary, rent and subscriptions repeat - define them once here."
             action={<Button onClick={() => setOpen(true)}>New rule</Button>}
           />
         ) : (

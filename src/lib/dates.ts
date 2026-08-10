@@ -6,13 +6,13 @@ export const parseDate = (value: string): Date => parseISO(value);
 export const toISODate = (date: Date): string => format(date, "yyyy-MM-dd");
 
 export const formatDate = (value?: string | null): string =>
-  value ? format(parseISO(value), "dd/MM/yyyy") : "—";
+  value ? format(parseISO(value), "dd/MM/yyyy") : "-";
 
 export const formatDateLong = (value?: string | null): string =>
-  value ? format(parseISO(value), "EEE dd MMM yyyy") : "—";
+  value ? format(parseISO(value), "EEE dd MMM yyyy") : "-";
 
 export const formatDayLabel = (value?: string | null): string => {
-  if (!value) return "—";
+  if (!value) return "-";
   const date = parseISO(value);
   if (isToday(date)) return "Today";
   if (isTomorrow(date)) return "Tomorrow";
@@ -26,7 +26,7 @@ export const formatTime = (value?: string | null): string => {
 };
 
 export const formatRelative = (value?: string | null): string =>
-  value ? `${formatDistanceToNowStrict(parseISO(value))} ago` : "—";
+  value ? `${formatDistanceToNowStrict(parseISO(value))} ago` : "-";
 
 export const timeRange = (start?: string | null, end?: string | null): string => {
   if (!start) return "All day";

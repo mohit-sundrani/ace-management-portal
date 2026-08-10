@@ -77,13 +77,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Operations Console — life, projects and finance in one system" },
+      { title: "ACE Management - life, projects and finance in one system" },
       {
         name: "description",
         content:
-          "Operations Console is a single workspace for events, tasks, calendar and finance, with linked budgets and real accounting.",
+          "ACE Management is a single workspace for events, tasks, calendar and finance, with linked budgets and real accounting.",
       },
-      { property: "og:title", content: "Operations Console" },
+      { property: "og:title", content: "ACE Management" },
       {
         property: "og:description",
         content: "Plan events, run tasks and account for every rupee in one operations workspace.",

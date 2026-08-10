@@ -13,9 +13,21 @@ import {
   startOfMonth,
   startOfWeek,
 } from "date-fns";
-import { CalendarDays, ChevronLeft, ChevronRight, Pencil, Plus, Trash2 } from "lucide-react";
+import {
+  CalendarDays,
+  ChevronLeft,
+  ChevronRight,
+  Download,
+  Pencil,
+  Plus,
+  Trash2,
+} from "lucide-react";
 import { useMemo, useState } from "react";
 
+import {
+  CalendarExportDialog,
+  type CalendarPrintOptions,
+} from "@/components/console/calendar-export-dialog";
 import { DeleteConfirmDialog } from "@/components/console/delete-dialog";
 import { PageHeader } from "@/components/console/page-header";
 import { Panel, PanelBody, PanelHeader } from "@/components/console/panel";
@@ -32,13 +44,13 @@ import type { Row } from "@/services/db";
 export const Route = createFileRoute("/_authenticated/calendar")({
   head: () => ({
     meta: [
-      { title: "Calendar — Operations Console" },
+      { title: "Calendar - ACE Management" },
       {
         name: "description",
         content:
           "Month, week, day and agenda views of scheduled items, task due dates and event milestones.",
       },
-      { property: "og:title", content: "Calendar — Operations Console" },
+      { property: "og:title", content: "Calendar - ACE Management" },
       { property: "og:description", content: "Everything scheduled, in the view you need." },
     ],
   }),
@@ -67,6 +79,8 @@ function CalendarPage() {
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState<Row<"calendar_items"> | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<Row<"calendar_items"> | null>(null);
+  const [exportOpen, setExportOpen] = useState(false);
+  const [printOptions, setPrintOptions] = useState<CalendarPrintOptions | null>(null);
 
   const items = useCollection("calendar_items", { orderBy: { column: "start_date" } });
   const tasks = useCollection("tasks", { orderBy: { column: "due_date" } });
@@ -135,6 +149,20 @@ function CalendarPage() {
     [entries, cursor],
   );
 
+  const printGroups = useMemo(() => {
+    if (!printOptions) return [];
+    const selected = entries.filter((entry) => printOptions.selection.has(entry.id));
+    const byDate = new Map<string, Array<Entry>>();
+    for (const entry of selected) {
+      const list = byDate.get(entry.date) ?? [];
+      list.push(entry);
+      byDate.set(entry.date, list);
+    }
+    return [...byDate.entries()].sort(([a], [b]) => a.localeCompare(b));
+  }, [entries, printOptions]);
+
+  const printCount = printGroups.reduce((acc, [, list]) => acc + list.length, 0);
+
   const fields: ReadonlyArray<Field> = [
     {
       name: "title",
@@ -177,6 +205,12 @@ function CalendarPage() {
   const openItem = (itemId: string) => {
     const item = (items.data ?? []).find((entry) => entry.id === itemId);
     if (item) setEditing(item);
+  };
+
+  const downloadCalendar = (options: CalendarPrintOptions) => {
+    setPrintOptions(options);
+    setExportOpen(false);
+    setTimeout(() => window.print(), 100);
   };
 
   const heading =
@@ -237,6 +271,10 @@ function CalendarPage() {
                 <TabsTrigger value="agenda">Agenda</TabsTrigger>
               </TabsList>
             </Tabs>
+            <Button variant="outline" onClick={() => setExportOpen(true)}>
+              <Download className="size-4" aria-hidden />
+              Download PDF
+            </Button>
             <Button onClick={() => setOpen(true)}>
               <Plus className="size-4" aria-hidden />
               New item
@@ -245,7 +283,12 @@ function CalendarPage() {
         }
       />
 
-      <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_20rem]">
+      <div
+        className={cn(
+          "grid gap-6 xl:grid-cols-[minmax(0,1fr)_20rem]",
+          printOptions && "print:hidden",
+        )}
+      >
         <Panel>
           <PanelHeader
             eyebrow={view}
@@ -410,6 +453,78 @@ function CalendarPage() {
         </Panel>
       </div>
 
+      {printOptions ? (
+        <div className="hidden print:block">
+          <div className="flex items-end justify-between border-b-2 border-ink pb-4">
+            <div>
+              <p className="label-mono">ACE Management</p>
+              <p className="mt-1 font-heading text-3xl leading-snug text-foreground">Calendar</p>
+            </div>
+            <p className="label-mono">Generated {format(new Date(), "dd MMM yyyy, HH:mm")}</p>
+          </div>
+
+          {printOptions.headerNote ? (
+            <div className="mt-5 rounded-sm border border-stroke bg-beige/60 px-4 py-3">
+              <p className="label-mono">Note</p>
+              <p className="mt-1 whitespace-pre-wrap text-sm text-foreground">
+                {printOptions.headerNote}
+              </p>
+            </div>
+          ) : null}
+
+          <div className="mt-5 flex flex-wrap gap-x-12 gap-y-2 text-sm">
+            <div>
+              <p className="label-mono">Entries</p>
+              <p className="mt-1 font-medium text-foreground">{printCount}</p>
+            </div>
+            <div>
+              <p className="label-mono">Dates</p>
+              <p className="mt-1 font-medium text-foreground">{printGroups.length}</p>
+            </div>
+            <div>
+              <p className="label-mono">Range</p>
+              <p className="mt-1 text-foreground">
+                {printGroups.length > 0
+                  ? `${formatDate(printGroups[0]?.[0])} – ${formatDate(printGroups[printGroups.length - 1]?.[0])}`
+                  : "-"}
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-6 space-y-6">
+            {printGroups.map(([date, list]) => (
+              <section key={date}>
+                <h4 className="label-mono border-b border-stroke pb-1">{formatDateLong(date)}</h4>
+                <ul className="divide-y divide-stroke">
+                  {list.map((entry) => (
+                    <li key={entry.id} className="flex items-center justify-between gap-3 py-2.5">
+                      <div className="min-w-0">
+                        <p className="truncate text-sm text-foreground">{entry.label}</p>
+                        {entry.time ? (
+                          <p className="label-mono mt-0.5">
+                            {entry.time}
+                            {entry.kind === "item" ? " · calendar item" : ` · ${entry.kind}`}
+                          </p>
+                        ) : (
+                          <p className="label-mono mt-0.5">{entry.kind}</p>
+                        )}
+                      </div>
+                      <StatusBadge tone={kindTone[entry.kind]}>{entry.kind}</StatusBadge>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ))}
+          </div>
+
+          {printOptions.footerNote ? (
+            <div className="mt-8 border-t border-stroke pt-4">
+              <p className="whitespace-pre-wrap text-sm text-grey">{printOptions.footerNote}</p>
+            </div>
+          ) : null}
+        </div>
+      ) : null}
+
       <RecordDialog
         open={open}
         onOpenChange={setOpen}
@@ -427,7 +542,7 @@ function CalendarPage() {
           if (!next) setEditing(null);
         }}
         title="Edit calendar item"
-        description="Move it, retitle it or relink it — tasks and events stay put."
+        description="Move it, retitle it or relink it - tasks and events stay put."
         fields={fields}
         initial={editing}
         submitLabel="Save changes"
@@ -454,6 +569,13 @@ function CalendarPage() {
             remove.mutate(deleteTarget.id, { onSuccess: () => setDeleteTarget(null) });
           }
         }}
+      />
+
+      <CalendarExportDialog
+        open={exportOpen}
+        onOpenChange={setExportOpen}
+        entries={entries}
+        onDownload={downloadCalendar}
       />
     </>
   );

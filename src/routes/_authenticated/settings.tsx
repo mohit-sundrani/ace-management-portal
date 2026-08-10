@@ -13,12 +13,12 @@ import { supabase } from "@/integrations/supabase/client";
 export const Route = createFileRoute("/_authenticated/settings")({
   head: () => ({
     meta: [
-      { title: "Settings — Operations Console" },
+      { title: "Settings - ACE Management" },
       {
         name: "description",
         content: "Workspace preferences: display name, reporting currency and session controls.",
       },
-      { property: "og:title", content: "Settings — Operations Console" },
+      { property: "og:title", content: "Settings - ACE Management" },
       { property: "og:description", content: "Tune your workspace preferences." },
     ],
   }),

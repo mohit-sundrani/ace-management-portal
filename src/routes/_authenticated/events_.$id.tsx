@@ -28,12 +28,12 @@ import type { Row } from "@/services/db";
 export const Route = createFileRoute("/_authenticated/events_/$id")({
   head: () => ({
     meta: [
-      { title: "Event workspace — Operations Console" },
+      { title: "Event workspace - ACE Management" },
       {
         name: "description",
         content: "Budget lines, vendors, guests, payments and tasks for a single event.",
       },
-      { property: "og:title", content: "Event workspace — Operations Console" },
+      { property: "og:title", content: "Event workspace - ACE Management" },
       { property: "og:description", content: "One event, one accountable ledger." },
     ],
   }),
@@ -404,7 +404,7 @@ function EventDetail() {
       key: "category",
       header: "Category",
       cell: (row) =>
-        (categories.data ?? []).find((category) => category.id === row.category_id)?.name ?? "—",
+        (categories.data ?? []).find((category) => category.id === row.category_id)?.name ?? "-",
     },
     {
       key: "planned",
@@ -427,7 +427,7 @@ function EventDetail() {
 
   const vendorColumns: ReadonlyArray<Column<Row<"event_vendors">>> = [
     { key: "name", header: "Vendor", cell: (row) => row.name },
-    { key: "service", header: "Service", cell: (row) => row.service ?? "—" },
+    { key: "service", header: "Service", cell: (row) => row.service ?? "-" },
     {
       key: "agreed",
       header: "Agreed",
@@ -463,7 +463,7 @@ function EventDetail() {
 
   const guestColumns: ReadonlyArray<Column<Row<"event_guests">>> = [
     { key: "name", header: "Guest", cell: (row) => row.name },
-    { key: "contact", header: "Contact", cell: (row) => row.contact ?? "—" },
+    { key: "contact", header: "Contact", cell: (row) => row.contact ?? "-" },
     { key: "party", header: "Party", align: "right", cell: (row) => row.party_size },
     {
       key: "rsvp",
@@ -553,7 +553,7 @@ function EventDetail() {
       header: "Time",
       cell: (row) => (row.all_day ? "All day" : timeRange(row.start_time, row.end_time)),
     },
-    { key: "location", header: "Location", cell: (row) => row.location ?? "—" },
+    { key: "location", header: "Location", cell: (row) => row.location ?? "-" },
     {
       key: "actions",
       header: "",
@@ -690,7 +690,7 @@ function EventDetail() {
                   </div>
                   <div>
                     <dt className="label-mono">Location</dt>
-                    <dd className="mt-1.5 text-sm text-foreground">{event.location ?? "—"}</dd>
+                    <dd className="mt-1.5 text-sm text-foreground">{event.location ?? "-"}</dd>
                   </div>
                   <div>
                     <dt className="label-mono">Starts</dt>
@@ -788,7 +788,7 @@ function EventDetail() {
             <PanelHeader eyebrow="Upcoming" title="Next scheduled activity" />
             {upcoming.length === 0 ? (
               <p className="px-6 py-10 text-center text-sm text-grey">
-                Nothing scheduled — add calendar items or payments to see them here.
+                Nothing scheduled - add calendar items or payments to see them here.
               </p>
             ) : (
               <ul className="divide-y divide-stroke">
@@ -934,7 +934,7 @@ function EventDetail() {
         open={dialog?.kind === "event"}
         onOpenChange={(next) => setDialog(next ? { kind: "event" } : null)}
         title="Edit event"
-        description="Update the basics — budget lines, vendors and guests stay attached."
+        description="Update the basics - budget lines, vendors and guests stay attached."
         fields={eventFields}
         initial={event}
         submitLabel="Save changes"

@@ -1,7 +1,7 @@
 import type { ComponentProps, ElementType, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-/** Bordered container — the system's only in-flow depth device. */
+/** Bordered container - the system's only in-flow depth device. */
 export function Panel({
   className,
   ticked = false,

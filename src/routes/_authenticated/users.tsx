@@ -21,12 +21,12 @@ import type { Row } from "@/services/db";
 export const Route = createFileRoute("/_authenticated/users")({
   head: () => ({
     meta: [
-      { title: "Users — Operations Console" },
+      { title: "Users - ACE Management" },
       {
         name: "description",
         content: "Workspace membership, assigned roles and the access model behind the console.",
       },
-      { property: "og:title", content: "Users — Operations Console" },
+      { property: "og:title", content: "Users - ACE Management" },
       { property: "og:description", content: "Identity and roles for your workspace." },
     ],
   }),
@@ -149,7 +149,7 @@ function UsersPage() {
     <>
       <PageHeader
         title="Users"
-        description="Workspace membership and roles — every workspace stays private via row-level security."
+        description="Workspace membership and roles - every workspace stays private via row-level security."
       />
 
       <StatGrid className="xl:grid-cols-3">
