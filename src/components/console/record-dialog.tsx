@@ -136,7 +136,7 @@ export function RecordDialog({
                                 )}
                             >
                                 {field.type === "switch" ? (
-                                    <div className="flex items-center justify-between rounded-sm border border-stroke px-3 py-2.5">
+                                    <div className="border-stroke flex items-center justify-between rounded-sm border px-3 py-2.5">
                                         <Label htmlFor={id}>{field.label}</Label>
                                         <Switch
                                             id={id}
@@ -195,7 +195,7 @@ export function RecordDialog({
                                                 onChange={(event) => set(field.name, event.target.value)}
                                             />
                                         )}
-                                        {field.help ? <p className="text-xs text-grey">{field.help}</p> : null}
+                                        {field.help ? <p className="text-grey text-xs">{field.help}</p> : null}
                                     </>
                                 )}
                             </div>

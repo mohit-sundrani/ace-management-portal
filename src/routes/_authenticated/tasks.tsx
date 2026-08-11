@@ -142,7 +142,7 @@ function TasksPage() {
                             })
                         }
                         className={cn(
-                            "inline-flex cursor-pointer items-center gap-1.5 rounded-sm border px-2.5 py-1 font-mono text-[0.6875rem] font-medium uppercase tracking-wide transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electric focus-visible:ring-offset-1",
+                            "focus-visible:ring-electric inline-flex cursor-pointer items-center gap-1.5 rounded-sm border px-2.5 py-1 font-mono text-[0.6875rem] font-medium tracking-wide uppercase transition-colors focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:outline-none",
                             statusClickerTone[task.status],
                         )}
                     >
@@ -157,7 +157,7 @@ function TasksPage() {
             header: "Task",
             cell: (task) => (
                 <div className="min-w-0">
-                    <p className="truncate font-medium text-foreground">{task.title}</p>
+                    <p className="text-foreground truncate font-medium">{task.title}</p>
                     <p className="label-mono mt-1">{task.category ?? "general"}</p>
                 </div>
             ),

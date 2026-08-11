@@ -84,7 +84,7 @@ function AccountsPage() {
             header: "Account",
             cell: (account) => (
                 <div className="min-w-0">
-                    <p className="truncate font-medium text-foreground">{account.name}</p>
+                    <p className="text-foreground truncate font-medium">{account.name}</p>
                     <p className="label-mono mt-1">{account.currency}</p>
                 </div>
             ),

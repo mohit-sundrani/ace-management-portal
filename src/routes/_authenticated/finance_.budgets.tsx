@@ -125,7 +125,7 @@ function BudgetsPage() {
                         action={<Button onClick={() => setOpen(true)}>New budget</Button>}
                     />
                 ) : (
-                    <ul className="divide-y divide-stroke">
+                    <ul className="divide-stroke divide-y">
                         {rows.map((budget) => {
                             const health = budgetHealth(budget, txns);
                             const category = (categories.data ?? []).find((entry) => entry.id === budget.category_id);
@@ -133,7 +133,7 @@ function BudgetsPage() {
                                 <li key={budget.id} className="px-6 py-4">
                                     <div className="flex flex-wrap items-center justify-between gap-3">
                                         <div className="min-w-0">
-                                            <p className="truncate font-medium text-foreground">{budget.name}</p>
+                                            <p className="text-foreground truncate font-medium">{budget.name}</p>
                                             <p className="label-mono mt-1">
                                                 {budget.period} · {formatDate(budget.start_date)} –{" "}
                                                 {formatDate(budget.end_date)} · {category?.name ?? "all categories"}
@@ -170,12 +170,12 @@ function BudgetsPage() {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="mt-3 h-1.5 w-full rounded-xs bg-beige">
+                                    <div className="bg-beige mt-3 h-1.5 w-full rounded-xs">
                                         <div
                                             className={
                                                 health.over
-                                                    ? "h-full rounded-xs bg-danger"
-                                                    : "h-full rounded-xs bg-electric"
+                                                    ? "bg-danger h-full rounded-xs"
+                                                    : "bg-electric h-full rounded-xs"
                                             }
                                             style={{ width: `${Math.min(health.usage, 100)}%` }}
                                         />

@@ -76,7 +76,7 @@ function CategoriesPage() {
                         className="size-2.5 shrink-0 rounded-xs"
                         style={{ backgroundColor: category.color }}
                     />
-                    <span className="truncate text-foreground">{category.name}</span>
+                    <span className="text-foreground truncate">{category.name}</span>
                 </span>
             ),
         },

@@ -35,9 +35,9 @@ export function DeleteConfirmDialog({
                     <DialogTitle>{title}</DialogTitle>
                     {description ? <DialogDescription>{description}</DialogDescription> : null}
                 </DialogHeader>
-                <div className="flex items-start gap-3 rounded-sm border border-danger/30 bg-danger/5 px-4 py-3">
-                    <AlertTriangle className="mt-0.5 size-4 shrink-0 text-danger" aria-hidden />
-                    <p className="text-sm text-foreground">This action cannot be undone.</p>
+                <div className="border-danger/30 bg-danger/5 flex items-start gap-3 rounded-sm border px-4 py-3">
+                    <AlertTriangle className="text-danger mt-0.5 size-4 shrink-0" aria-hidden />
+                    <p className="text-foreground text-sm">This action cannot be undone.</p>
                 </div>
                 <DialogFooter>
                     <Button variant="ghost" onClick={() => onOpenChange(false)} disabled={busy}>

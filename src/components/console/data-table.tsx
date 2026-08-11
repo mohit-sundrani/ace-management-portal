@@ -25,14 +25,14 @@ export function DataTable<T extends { id: string }>({
     emptyLabel?: string;
 }) {
     if (rows.length === 0) {
-        return <p className="px-6 py-10 text-center text-sm text-grey">{emptyLabel}</p>;
+        return <p className="text-grey px-6 py-10 text-center text-sm">{emptyLabel}</p>;
     }
 
     return (
         <div className="overflow-x-auto">
             <table className="w-full min-w-[42rem] border-collapse text-sm">
                 <thead>
-                    <tr className="border-b border-stroke">
+                    <tr className="border-stroke border-b">
                         {columns.map((column) => (
                             <th
                                 key={column.key}
@@ -48,18 +48,18 @@ export function DataTable<T extends { id: string }>({
                         ))}
                     </tr>
                 </thead>
-                <tbody className="divide-y divide-stroke">
+                <tbody className="divide-stroke divide-y">
                     {rows.map((row) => (
                         <tr
                             key={row.id}
                             onClick={onRowClick ? () => onRowClick(row) : undefined}
-                            className={cn("transition-colors hover:bg-beige/60", onRowClick && "cursor-pointer")}
+                            className={cn("hover:bg-beige/60 transition-colors", onRowClick && "cursor-pointer")}
                         >
                             {columns.map((column) => (
                                 <td
                                     key={column.key}
                                     className={cn(
-                                        "px-6 align-middle text-foreground",
+                                        "text-foreground px-6 align-middle",
                                         compact ? "py-2.5" : "py-3.5",
                                         column.align === "right" && "stat-numeral text-right",
                                     )}

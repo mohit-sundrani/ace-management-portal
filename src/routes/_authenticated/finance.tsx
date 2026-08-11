@@ -142,17 +142,17 @@ function FinanceOverview() {
                         actions={
                             <Link
                                 to="/finance/accounts"
-                                className="font-mono text-xs uppercase text-electric hover:underline"
+                                className="text-electric font-mono text-xs uppercase hover:underline"
                             >
                                 Manage
                             </Link>
                         }
                     />
-                    <ul className="divide-y divide-stroke">
+                    <ul className="divide-stroke divide-y">
                         {(accounts.data ?? []).map((account) => (
                             <li key={account.id} className="flex items-center justify-between gap-4 px-6 py-3.5">
                                 <div className="min-w-0">
-                                    <p className="truncate text-sm text-foreground">{account.name}</p>
+                                    <p className="text-foreground truncate text-sm">{account.name}</p>
                                     <p className="label-mono mt-1">{account.type}</p>
                                 </div>
                                 <span className="stat-numeral text-sm">
@@ -170,29 +170,29 @@ function FinanceOverview() {
                         actions={
                             <Link
                                 to="/finance/budgets"
-                                className="font-mono text-xs uppercase text-electric hover:underline"
+                                className="text-electric font-mono text-xs uppercase hover:underline"
                             >
                                 Manage
                             </Link>
                         }
                     />
-                    <ul className="divide-y divide-stroke">
+                    <ul className="divide-stroke divide-y">
                         {(budgets.data ?? []).slice(0, 6).map((budget) => {
                             const health = budgetHealth(budget, txns);
                             return (
                                 <li key={budget.id} className="px-6 py-3.5">
                                     <div className="flex items-center justify-between gap-4">
-                                        <p className="truncate text-sm text-foreground">{budget.name}</p>
+                                        <p className="text-foreground truncate text-sm">{budget.name}</p>
                                         <span className="stat-numeral text-sm">
                                             {formatMoney(health.spent)} / {formatAmount(budget.planned_amount)}
                                         </span>
                                     </div>
-                                    <div className="mt-2 h-1.5 w-full rounded-xs bg-beige">
+                                    <div className="bg-beige mt-2 h-1.5 w-full rounded-xs">
                                         <div
                                             className={
                                                 health.over
-                                                    ? "h-full rounded-xs bg-danger"
-                                                    : "h-full rounded-xs bg-electric"
+                                                    ? "bg-danger h-full rounded-xs"
+                                                    : "bg-electric h-full rounded-xs"
                                             }
                                             style={{ width: `${Math.min(health.usage, 100)}%` }}
                                         />
@@ -211,22 +211,22 @@ function FinanceOverview() {
                     actions={
                         <Link
                             to="/finance/transactions"
-                            className="font-mono text-xs uppercase text-electric hover:underline"
+                            className="text-electric font-mono text-xs uppercase hover:underline"
                         >
                             View all
                         </Link>
                     }
                 />
-                <ul className="divide-y divide-stroke">
+                <ul className="divide-stroke divide-y">
                     {txns.slice(0, 8).map((txn) => (
                         <li key={txn.id} className="flex items-center justify-between gap-4 px-6 py-3.5">
                             <div className="min-w-0">
-                                <p className="truncate text-sm text-foreground">{txn.description}</p>
+                                <p className="text-foreground truncate text-sm">{txn.description}</p>
                                 <p className="label-mono mt-1">{formatDate(txn.occurred_on)}</p>
                             </div>
                             <span
                                 className={
-                                    txn.type === "income" ? "stat-numeral text-sm text-success" : "stat-numeral text-sm"
+                                    txn.type === "income" ? "stat-numeral text-success text-sm" : "stat-numeral text-sm"
                                 }
                             >
                                 {txn.type === "income" ? "+" : "−"}

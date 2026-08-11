@@ -468,7 +468,7 @@ function EventDetail() {
             header: "Payment",
             cell: (row) => (
                 <div className="min-w-0">
-                    <p className="truncate text-foreground">{row.label}</p>
+                    <p className="text-foreground truncate">{row.label}</p>
                     <p className="label-mono mt-1">
                         {row.direction === "income" ? "incoming" : "outgoing"}
                         {row.vendor_id
@@ -560,7 +560,7 @@ function EventDetail() {
 
     const metricRow = (label: string, planned: Minor, actual: Minor, variance: Minor, good: boolean) => (
         <tr>
-            <td className="px-6 py-3 text-foreground">{label}</td>
+            <td className="text-foreground px-6 py-3">{label}</td>
             <td className="stat-numeral px-6 py-3 text-right">{formatMoney(planned)}</td>
             <td className="stat-numeral px-6 py-3 text-right">{formatMoney(actual)}</td>
             <td
@@ -652,35 +652,35 @@ function EventDetail() {
                                     </div>
                                     <div>
                                         <dt className="label-mono">Location</dt>
-                                        <dd className="mt-1.5 text-sm text-foreground">{event.location ?? "-"}</dd>
+                                        <dd className="text-foreground mt-1.5 text-sm">{event.location ?? "-"}</dd>
                                     </div>
                                     <div>
                                         <dt className="label-mono">Starts</dt>
-                                        <dd className="mt-1.5 text-sm text-foreground">
+                                        <dd className="text-foreground mt-1.5 text-sm">
                                             {formatDateLong(event.start_date)}
                                         </dd>
                                     </div>
                                     <div>
                                         <dt className="label-mono">Ends</dt>
-                                        <dd className="mt-1.5 text-sm text-foreground">
+                                        <dd className="text-foreground mt-1.5 text-sm">
                                             {formatDateLong(event.end_date)}
                                         </dd>
                                     </div>
                                     <div>
                                         <dt className="label-mono">Planned budget</dt>
-                                        <dd className="mt-1.5 text-sm text-foreground">
+                                        <dd className="text-foreground mt-1.5 text-sm">
                                             {formatAmount(event.planned_budget)}
                                         </dd>
                                     </div>
                                     <div>
                                         <dt className="label-mono">Last updated</dt>
-                                        <dd className="mt-1.5 text-sm text-foreground">
+                                        <dd className="text-foreground mt-1.5 text-sm">
                                             {formatRelative(event.updated_at)}
                                         </dd>
                                     </div>
                                 </dl>
                                 {event.notes ? (
-                                    <p className="mt-6 rounded-sm border border-stroke bg-beige/40 p-4 text-sm text-foreground">
+                                    <p className="border-stroke bg-beige/40 text-foreground mt-6 rounded-sm border p-4 text-sm">
                                         {event.notes}
                                     </p>
                                 ) : null}
@@ -693,7 +693,7 @@ function EventDetail() {
                                 <div className="overflow-x-auto">
                                     <table className="w-full text-sm">
                                         <thead>
-                                            <tr className="border-b border-stroke">
+                                            <tr className="border-stroke border-b">
                                                 <th className="label-mono px-6 py-3 text-left font-normal">Metric</th>
                                                 <th className="label-mono px-6 py-3 text-right font-normal">Planned</th>
                                                 <th className="label-mono px-6 py-3 text-right font-normal">Actual</th>
@@ -702,7 +702,7 @@ function EventDetail() {
                                                 </th>
                                             </tr>
                                         </thead>
-                                        <tbody className="divide-y divide-stroke">
+                                        <tbody className="divide-stroke divide-y">
                                             {metricRow(
                                                 "Income",
                                                 finance.plannedIncome,
@@ -736,10 +736,10 @@ function EventDetail() {
                                         {taskDone}
                                         <span className="text-grey"> / {taskTotal}</span>
                                     </p>
-                                    <p className="mt-1 text-xs text-grey">tasks complete</p>
-                                    <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-beige">
+                                    <p className="text-grey mt-1 text-xs">tasks complete</p>
+                                    <div className="bg-beige mt-4 h-1.5 overflow-hidden rounded-full">
                                         <div
-                                            className="h-full rounded-full bg-success transition-all"
+                                            className="bg-success h-full rounded-full transition-all"
                                             style={{ width: `${taskPercent}%` }}
                                         />
                                     </div>
@@ -751,18 +751,18 @@ function EventDetail() {
                     <Panel className="mt-6">
                         <PanelHeader eyebrow="Upcoming" title="Next scheduled activity" />
                         {upcoming.length === 0 ? (
-                            <p className="px-6 py-10 text-center text-sm text-grey">
+                            <p className="text-grey px-6 py-10 text-center text-sm">
                                 Nothing scheduled - add calendar items or payments to see them here.
                             </p>
                         ) : (
-                            <ul className="divide-y divide-stroke">
+                            <ul className="divide-stroke divide-y">
                                 {upcoming.map((entry) => (
                                     <li key={entry.id} className="flex items-center justify-between gap-3 px-6 py-3.5">
                                         <div className="min-w-0">
-                                            <p className="truncate text-sm text-foreground">{entry.label}</p>
+                                            <p className="text-foreground truncate text-sm">{entry.label}</p>
                                             <p className="label-mono mt-1">{entry.detail}</p>
                                         </div>
-                                        <span className="font-mono text-xs text-grey">
+                                        <span className="text-grey font-mono text-xs">
                                             {formatDateLong(entry.date)}
                                         </span>
                                     </li>

@@ -40,7 +40,7 @@ export function StatCell({
                     </span>
                 ) : null}
             </div>
-            {caption ? <p className="text-xs text-grey">{caption}</p> : null}
+            {caption ? <p className="text-grey text-xs">{caption}</p> : null}
         </div>
     );
 }
@@ -49,7 +49,7 @@ export function StatGrid({ children, className }: { children: ReactNode; classNa
     return (
         <div
             className={cn(
-                "panel grid grid-cols-1 divide-y divide-stroke sm:grid-cols-2 sm:divide-x xl:grid-cols-4",
+                "panel divide-stroke grid grid-cols-1 divide-y sm:grid-cols-2 sm:divide-x xl:grid-cols-4",
                 "[&>*]:min-w-0",
                 className,
             )}

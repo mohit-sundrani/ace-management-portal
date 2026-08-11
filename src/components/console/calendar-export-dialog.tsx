@@ -161,7 +161,7 @@ export function CalendarExportDialog({
                                 <button
                                     type="button"
                                     onClick={clearRange}
-                                    className="flex items-center gap-1 text-xs font-medium text-grey transition-colors hover:text-foreground"
+                                    className="text-grey hover:text-foreground flex items-center gap-1 text-xs font-medium transition-colors"
                                 >
                                     <RotateCcw className="size-3" aria-hidden />
                                     Clear range
@@ -189,9 +189,9 @@ export function CalendarExportDialog({
                             </div>
                         </div>
                         {rangeInvalid ? (
-                            <p className="text-xs text-danger">From must not be later than to.</p>
+                            <p className="text-danger text-xs">From must not be later than to.</p>
                         ) : (
-                            <p className="text-xs text-grey">Leave both empty to include every date.</p>
+                            <p className="text-grey text-xs">Leave both empty to include every date.</p>
                         )}
                     </div>
 
@@ -201,33 +201,33 @@ export function CalendarExportDialog({
                             <button
                                 type="button"
                                 onClick={toggleAll}
-                                className="text-xs font-medium text-grey transition-colors hover:text-foreground"
+                                className="text-grey hover:text-foreground text-xs font-medium transition-colors"
                             >
                                 {selectedCount === visibleEntries.length ? "Deselect all" : "Select all"}
                             </button>
                         </div>
-                        <div className="rounded-sm border border-stroke">
-                            <div className="flex items-center justify-between border-b border-stroke px-3 py-2">
+                        <div className="border-stroke rounded-sm border">
+                            <div className="border-stroke flex items-center justify-between border-b px-3 py-2">
                                 <p className="label-mono">Entries</p>
                                 <p className="label-mono">
                                     {selectedCount}/{visibleEntries.length} selected
                                 </p>
                             </div>
                             {visibleEntries.length === 0 ? (
-                                <p className="px-4 py-6 text-center text-sm text-grey">
+                                <p className="text-grey px-4 py-6 text-center text-sm">
                                     {rangeInvalid
                                         ? "The from date is later than the to date - choose a valid range."
                                         : "Nothing is scheduled in this range - widen the dates or add items to the calendar to export them."}
                                 </p>
                             ) : (
                                 <ScrollArea className="h-56">
-                                    <ul className="divide-y divide-stroke">
+                                    <ul className="divide-stroke divide-y">
                                         {groups.map((group) => {
                                             const ids = group.list.map((entry) => entry.id);
                                             const allSelected = ids.every((id) => selection.has(id));
                                             return (
                                                 <li key={group.kind}>
-                                                    <div className="flex items-center gap-2.5 bg-beige/60 px-3 py-2">
+                                                    <div className="bg-beige/60 flex items-center gap-2.5 px-3 py-2">
                                                         <Checkbox
                                                             id={`export-group-${group.kind}`}
                                                             checked={allSelected}
@@ -241,11 +241,11 @@ export function CalendarExportDialog({
                                                         </Label>
                                                         <span className="label-mono">{group.list.length}</span>
                                                     </div>
-                                                    <ul className="divide-y divide-stroke">
+                                                    <ul className="divide-stroke divide-y">
                                                         {group.list.map((entry) => (
                                                             <li
                                                                 key={entry.id}
-                                                                className="flex items-center justify-between gap-3 py-2 pl-4 pr-3"
+                                                                className="flex items-center justify-between gap-3 py-2 pr-3 pl-4"
                                                             >
                                                                 <label
                                                                     htmlFor={`export-entry-${entry.id}`}

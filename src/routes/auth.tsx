@@ -46,20 +46,20 @@ function AuthPage() {
     };
 
     return (
-        <div className="grid min-h-screen bg-background lg:grid-cols-2">
-            <section className="hidden flex-col justify-between border-r border-stroke bg-beige p-12 lg:flex">
+        <div className="bg-background grid min-h-screen lg:grid-cols-2">
+            <section className="border-stroke bg-beige hidden flex-col justify-between border-r p-12 lg:flex">
                 <div className="flex items-center gap-2.5">
-                    <span className="grid size-7 place-items-center rounded-sm bg-electric font-mono text-xs text-white">
+                    <span className="bg-electric grid size-7 place-items-center rounded-sm font-mono text-xs text-white">
                         OC
                     </span>
-                    <span className="font-heading text-sm text-foreground">ACE Management</span>
+                    <span className="font-heading text-foreground text-sm">ACE Management</span>
                 </div>
                 <div className="max-w-md">
                     <p className="label-mono">Systems-grade personal ops</p>
-                    <h2 className="mt-4 font-heading text-3xl leading-snug text-foreground">
+                    <h2 className="font-heading text-foreground mt-4 text-3xl leading-snug">
                         Events, tasks and money in one accountable ledger.
                     </h2>
-                    <p className="mt-4 text-sm text-grey">
+                    <p className="text-grey mt-4 text-sm">
                         Every new workspace is seeded with realistic accounts, categories, an in-flight event and a year
                         of transactions, so the console is useful the moment you land.
                     </p>
@@ -70,7 +70,7 @@ function AuthPage() {
             <section className="flex items-center justify-center px-6 py-16">
                 <div className="panel ticked w-full max-w-md p-8">
                     <p className="label-mono">Access</p>
-                    <h1 className="mt-2 font-heading text-2xl text-foreground">Sign in to your console</h1>
+                    <h1 className="font-heading text-foreground mt-2 text-2xl">Sign in to your console</h1>
 
                     <div className="mt-6 space-y-4">
                         <div className="space-y-2">

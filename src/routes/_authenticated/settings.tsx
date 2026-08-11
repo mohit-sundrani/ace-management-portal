@@ -94,7 +94,7 @@ function SettingsPage() {
             <Panel className="mt-6">
                 <PanelHeader eyebrow="Session" title="Sign out" />
                 <PanelBody className="flex flex-wrap items-center justify-between gap-4">
-                    <p className="text-sm text-grey">End this session on the current device.</p>
+                    <p className="text-grey text-sm">End this session on the current device.</p>
                     <Button variant="outline" onClick={() => void signOut()}>
                         Sign out
                     </Button>

@@ -20,24 +20,24 @@ export function PageHeader({
                 {crumbs.length > 0 ? (
                     <nav
                         aria-label="Breadcrumb"
-                        className="mb-2 flex items-center gap-1.5 font-mono text-[0.6875rem] uppercase tracking-wide"
+                        className="mb-2 flex items-center gap-1.5 font-mono text-[0.6875rem] tracking-wide uppercase"
                     >
                         {crumbs.map((crumb, index) => (
                             <span key={`${crumb.label}-${index}`} className="flex items-center gap-1.5">
                                 {crumb.to ? (
-                                    <Link to={crumb.to} className="text-grey transition-colors hover:text-foreground">
+                                    <Link to={crumb.to} className="text-grey hover:text-foreground transition-colors">
                                         {crumb.label}
                                     </Link>
                                 ) : (
-                                    <span className="max-w-[16rem] truncate text-foreground">{crumb.label}</span>
+                                    <span className="text-foreground max-w-[16rem] truncate">{crumb.label}</span>
                                 )}
                                 {index < crumbs.length - 1 ? <span className="text-stroke">/</span> : null}
                             </span>
                         ))}
                     </nav>
                 ) : null}
-                <h1 className="font-heading text-3xl leading-snug tracking-tight text-foreground">{title}</h1>
-                {description ? <p className="mt-1.5 max-w-2xl text-sm text-grey">{description}</p> : null}
+                <h1 className="font-heading text-foreground text-3xl leading-snug tracking-tight">{title}</h1>
+                {description ? <p className="text-grey mt-1.5 max-w-2xl text-sm">{description}</p> : null}
             </div>
             {actions ? <div className="flex items-center gap-3">{actions}</div> : null}
         </header>

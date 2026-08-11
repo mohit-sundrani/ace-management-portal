@@ -130,7 +130,7 @@ function NavLinks({ collapsed, onNavigate }: { collapsed: boolean; onNavigate?: 
                                             "flex h-9 items-center gap-2 rounded-sm px-3 text-sm transition-colors",
                                             "border-l-2 border-transparent",
                                             active
-                                                ? "border-nickel bg-vite/15 font-medium text-foreground"
+                                                ? "border-nickel bg-vite/15 text-foreground font-medium"
                                                 : "text-grey hover:bg-beige hover:text-foreground",
                                             collapsed && "justify-center px-0",
                                         )}
@@ -151,13 +151,13 @@ function NavLinks({ collapsed, onNavigate }: { collapsed: boolean; onNavigate?: 
 
 function Brand({ collapsed }: { collapsed: boolean }) {
     return (
-        <div className="flex h-14 items-center gap-2.5 border-b border-stroke px-4">
-            <span className="grid size-7 shrink-0 place-items-center rounded-sm bg-black dark:bg-white font-mono text-xs font-medium text-white">
-                <img src="/logo.svg" className="h-4 w-4 aspect-square invert dark:invert-0 contrast-200" alt="A" />
+        <div className="border-stroke flex h-14 items-center gap-2.5 border-b px-4">
+            <span className="grid size-7 shrink-0 place-items-center rounded-sm bg-black font-mono text-xs font-medium text-white dark:bg-white">
+                <img src="/logo.svg" className="aspect-square h-4 w-4 contrast-200 invert dark:invert-0" alt="A" />
             </span>
             {!collapsed ? (
                 <span className="min-w-0">
-                    <span className="block truncate font-heading text-sm text-foreground">ACE</span>
+                    <span className="font-heading text-foreground block truncate text-sm">ACE</span>
                     <span className="label-mono block">Management</span>
                 </span>
             ) : null}
@@ -235,13 +235,13 @@ export function AppShell({ children }: { children: ReactNode }) {
 
     return (
         <div
-            className="app-shell min-h-screen bg-background md:grid"
+            className="app-shell bg-background min-h-screen md:grid"
             style={{ gridTemplateColumns: `${collapsed ? "4rem" : "15rem"} 1fr` }}
         >
-            <aside className="sticky top-0 hidden h-screen flex-col border-r border-stroke bg-beige md:flex">
+            <aside className="border-stroke bg-beige sticky top-0 hidden h-screen flex-col border-r md:flex">
                 <Brand collapsed={collapsed} />
                 <NavLinks collapsed={collapsed} />
-                <div className="border-t border-stroke p-3">
+                <div className="border-stroke border-t p-3">
                     <Button
                         variant="ghost"
                         size="sm"
@@ -256,14 +256,14 @@ export function AppShell({ children }: { children: ReactNode }) {
             </aside>
 
             <div className="flex min-w-0 flex-col">
-                <header className="sticky top-0 z-40 flex h-14 items-center gap-3 border-b border-stroke bg-background px-4 md:px-6">
+                <header className="border-stroke bg-background sticky top-0 z-40 flex h-14 items-center gap-3 border-b px-4 md:px-6">
                     <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
                         <SheetTrigger asChild>
                             <Button variant="ghost" size="icon" className="md:hidden" aria-label="Open navigation">
                                 <Menu className="size-5" />
                             </Button>
                         </SheetTrigger>
-                        <SheetContent side="left" className="w-64 border-stroke bg-beige p-0">
+                        <SheetContent side="left" className="border-stroke bg-beige w-64 p-0">
                             <SheetTitle className="sr-only">Navigation</SheetTitle>
                             <Brand collapsed={false} />
                             <NavLinks collapsed={false} onNavigate={() => setMobileOpen(false)} />
@@ -273,11 +273,11 @@ export function AppShell({ children }: { children: ReactNode }) {
                     <button
                         type="button"
                         onClick={() => setPaletteOpen(true)}
-                        className="flex h-9 flex-1 items-center gap-2 rounded-sm border border-stroke bg-surface px-3 text-left text-sm text-grey transition-colors hover:border-nickel md:max-w-sm"
+                        className="border-stroke bg-surface text-grey hover:border-nickel flex h-9 flex-1 items-center gap-2 rounded-sm border px-3 text-left text-sm transition-colors md:max-w-sm"
                     >
                         <Search className="size-4" strokeWidth={1.5} aria-hidden />
                         <span className="flex-1 truncate">Search pages and actions</span>
-                        <kbd className="hidden font-mono text-[0.625rem] uppercase tracking-wide text-grey md:inline">
+                        <kbd className="text-grey hidden font-mono text-[0.625rem] tracking-wide uppercase md:inline">
                             ⌘K
                         </kbd>
                     </button>
@@ -290,7 +290,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                             <DropdownMenuTrigger asChild>
                                 <button
                                     type="button"
-                                    className="grid size-8 place-items-center rounded-full border border-stroke bg-beige font-mono text-[0.625rem] font-medium text-foreground transition-colors hover:border-nickel"
+                                    className="border-stroke bg-beige text-foreground hover:border-nickel grid size-8 place-items-center rounded-full border font-mono text-[0.625rem] font-medium transition-colors"
                                     aria-label="Account menu"
                                 >
                                     {initialsOf(name)}
@@ -298,7 +298,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end" className="w-56 rounded-md">
                                 <DropdownMenuLabel className="space-y-1">
-                                    <span className="block truncate text-sm text-foreground">{name}</span>
+                                    <span className="text-foreground block truncate text-sm">{name}</span>
                                     <span className="label-mono block">{isAdmin ? "administrator" : "user"}</span>
                                 </DropdownMenuLabel>
                                 <DropdownMenuSeparator />

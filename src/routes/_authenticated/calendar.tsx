@@ -213,7 +213,7 @@ function CalendarPage() {
     const entryRow = (entry: Entry) => (
         <li key={entry.id} className="flex items-start justify-between gap-3 px-6 py-3.5">
             <div className="min-w-0">
-                <p className="truncate text-sm text-foreground">{entry.label}</p>
+                <p className="text-foreground truncate text-sm">{entry.label}</p>
                 {entry.time ? <p className="label-mono mt-1">{entry.time}</p> : null}
             </div>
             <div className="flex shrink-0 items-center gap-1">
@@ -309,7 +309,7 @@ function CalendarPage() {
                                 }
                             />
                         ) : (
-                            <ul className="divide-y divide-stroke">{dayEntries.map(entryRow)}</ul>
+                            <ul className="divide-stroke divide-y">{dayEntries.map(entryRow)}</ul>
                         )
                     ) : view === "agenda" ? (
                         agenda.length === 0 ? (
@@ -320,7 +320,7 @@ function CalendarPage() {
                                 description="Scheduled items, task due dates and event milestones will list here."
                             />
                         ) : (
-                            <ul className="divide-y divide-stroke">
+                            <ul className="divide-stroke divide-y">
                                 {agenda.map((entry) => (
                                     <li key={entry.id}>
                                         <button
@@ -330,10 +330,10 @@ function CalendarPage() {
                                                 setCursor(parseISO(entry.date));
                                                 setView("day");
                                             }}
-                                            className="flex w-full items-center justify-between gap-3 px-6 py-3.5 text-left transition-colors hover:bg-beige/60"
+                                            className="hover:bg-beige/60 flex w-full items-center justify-between gap-3 px-6 py-3.5 text-left transition-colors"
                                         >
                                             <div className="min-w-0">
-                                                <p className="truncate text-sm text-foreground">{entry.label}</p>
+                                                <p className="text-foreground truncate text-sm">{entry.label}</p>
                                                 <p className="label-mono mt-1">
                                                     {formatDate(entry.date)}
                                                     {entry.time ? ` · ${entry.time}` : ""}
@@ -347,7 +347,7 @@ function CalendarPage() {
                         )
                     ) : (
                         <PanelBody className="p-0">
-                            <div className="grid grid-cols-7 border-b border-stroke">
+                            <div className="border-stroke grid grid-cols-7 border-b">
                                 {WEEKDAYS.map((day) => (
                                     <span key={day} className="label-mono px-3 py-2 text-center">
                                         {day}
@@ -365,17 +365,17 @@ function CalendarPage() {
                                             type="button"
                                             onClick={() => setSelected(iso)}
                                             className={cn(
-                                                "min-h-24 border-r border-b border-stroke p-2 text-left transition-colors last:border-r-0 hover:bg-beige/60",
+                                                "border-stroke hover:bg-beige/60 min-h-24 border-r border-b p-2 text-left transition-colors last:border-r-0",
                                                 view === "week" && "min-h-28",
                                                 outside && "bg-beige/40 text-grey",
-                                                selected === iso && "ring-1 ring-electric ring-inset",
+                                                selected === iso && "ring-grey ring-1 ring-inset",
                                             )}
                                         >
                                             <span
                                                 className={cn(
                                                     "font-mono text-xs",
                                                     isToday(day)
-                                                        ? "rounded-xs bg-electric px-1.5 py-0.5 text-white"
+                                                        ? "bg-nickel rounded-xs px-1.5 py-0.5 text-white"
                                                         : "text-grey",
                                                 )}
                                             >
@@ -424,17 +424,17 @@ function CalendarPage() {
                             }
                         />
                     ) : (
-                        <ul className="divide-y divide-stroke">{selectedEntries.map(entryRow)}</ul>
+                        <ul className="divide-stroke divide-y">{selectedEntries.map(entryRow)}</ul>
                     )}
                 </Panel>
             </div>
 
             {printOptions ? (
                 <div className="hidden print:block">
-                    <div className="flex items-end justify-between border-b-2 border-ink pb-4">
+                    <div className="border-ink flex items-end justify-between border-b-2 pb-4">
                         <div>
                             <p className="label-mono">ACE Management</p>
-                            <p className="mt-1 font-heading text-3xl leading-snug text-foreground font-bold">
+                            <p className="font-heading text-foreground mt-1 text-3xl leading-snug font-bold">
                                 Calendar
                             </p>
                         </div>
@@ -442,9 +442,9 @@ function CalendarPage() {
                     </div>
 
                     {printOptions.headerNote ? (
-                        <div className="mt-5 rounded-sm border border-stroke bg-beige/60 px-4 py-3">
+                        <div className="border-stroke bg-beige/60 mt-5 rounded-sm border px-4 py-3">
                             <p className="label-mono">Note</p>
-                            <p className="mt-1 whitespace-pre-wrap text-sm text-foreground">
+                            <p className="text-foreground mt-1 text-sm whitespace-pre-wrap">
                                 {printOptions.headerNote}
                             </p>
                         </div>
@@ -453,15 +453,15 @@ function CalendarPage() {
                     <div className="mt-5 flex flex-wrap gap-x-12 gap-y-2 text-sm">
                         <div>
                             <p className="label-mono">Entries</p>
-                            <p className="mt-1 font-medium text-foreground">{printCount}</p>
+                            <p className="text-foreground mt-1 font-medium">{printCount}</p>
                         </div>
                         <div>
                             <p className="label-mono">Dates</p>
-                            <p className="mt-1 font-medium text-foreground">{printGroups.length}</p>
+                            <p className="text-foreground mt-1 font-medium">{printGroups.length}</p>
                         </div>
                         <div>
                             <p className="label-mono">Period</p>
-                            <p className="mt-1 text-foreground">
+                            <p className="text-foreground mt-1">
                                 {printOptions.from && printOptions.to
                                     ? `${formatDate(printOptions.from)} – ${formatDate(printOptions.to)}`
                                     : printGroups.length > 0
@@ -472,15 +472,15 @@ function CalendarPage() {
                     </div>
 
                     <div className="relative mt-6">
-                        <span aria-hidden className="absolute bottom-1 left-2 top-1 w-px bg-stroke" />
+                        <span aria-hidden className="bg-stroke absolute top-1 bottom-1 left-2 w-px" />
                         {printGroups.map(([date, list]) => (
                             <section key={date} className="relative break-inside-avoid pb-6 pl-10">
                                 <span
                                     aria-hidden
-                                    className="absolute left-2 top-1.5 size-2 -translate-x-1/2 rounded-full border-2 border-electric bg-white"
+                                    className="border-electric absolute top-1.5 left-2 size-2 -translate-x-1/2 rounded-full border-2 bg-white"
                                 />
                                 <div className="flex items-baseline justify-between gap-3">
-                                    <h4 className="font-heading text-base font-bold text-foreground">
+                                    <h4 className="font-heading text-foreground text-base font-bold">
                                         {formatDateLong(date)}
                                     </h4>
                                     <span className="label-mono">
@@ -492,15 +492,12 @@ function CalendarPage() {
                                         <li key={entry.id} className="relative">
                                             <span
                                                 aria-hidden
-                                                className="absolute -left-8 top-4 size-1.5 -translate-x-1/2 rounded-full bg-electric"
+                                                className="bg-electric absolute top-4 -left-8 size-1.5 -translate-x-1/2 rounded-full"
                                             />
-                                            <span
-                                                aria-hidden
-                                                className="absolute -left-8 top-[18px] h-px w-8 bg-stroke"
-                                            />
-                                            <div className="flex items-center justify-between gap-3 rounded-sm border border-stroke bg-beige/40 px-3 py-2">
+                                            <span aria-hidden className="bg-stroke absolute top-4.5 -left-8 h-px w-8" />
+                                            <div className="border-stroke bg-beige/40 flex items-center justify-between gap-3 rounded-sm border px-3 py-2">
                                                 <div className="min-w-0">
-                                                    <p className="truncate text-sm font-medium text-foreground">
+                                                    <p className="text-foreground truncate text-sm font-medium">
                                                         {entry.label}
                                                     </p>
                                                     {entry.time ? (
@@ -523,8 +520,8 @@ function CalendarPage() {
                     </div>
 
                     {printOptions.footerNote ? (
-                        <div className="mt-8 border-t border-stroke pt-4">
-                            <p className="whitespace-pre-wrap text-sm text-grey">{printOptions.footerNote}</p>
+                        <div className="border-stroke mt-8 border-t pt-4">
+                            <p className="text-grey text-sm whitespace-pre-wrap">{printOptions.footerNote}</p>
                         </div>
                     ) : null}
                 </div>

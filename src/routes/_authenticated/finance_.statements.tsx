@@ -248,29 +248,29 @@ function StatementsPage() {
 
             {/* Print-only letterhead - becomes the first page of the exported PDF. */}
             <div className="hidden print:block">
-                <div className="flex items-end justify-between border-b-2 border-ink pb-4">
+                <div className="border-ink flex items-end justify-between border-b-2 pb-4">
                     <div>
                         <p className="label-mono">ACE Management</p>
-                        <p className="mt-1 font-heading text-3xl leading-snug text-foreground">Account statement</p>
+                        <p className="font-heading text-foreground mt-1 text-3xl leading-snug">Account statement</p>
                     </div>
                     <p className="label-mono">Generated {format(new Date(), "dd MMM yyyy, HH:mm")}</p>
                 </div>
                 <div className="flex flex-wrap gap-x-12 gap-y-2 pt-4 text-sm">
                     <div>
                         <p className="label-mono">Account</p>
-                        <p className="mt-1 font-medium text-foreground">{account?.name ?? "-"}</p>
+                        <p className="text-foreground mt-1 font-medium">{account?.name ?? "-"}</p>
                     </div>
                     <div>
                         <p className="label-mono">Currency</p>
-                        <p className="mt-1 font-mono text-foreground">{account?.currency ?? "-"}</p>
+                        <p className="text-foreground mt-1 font-mono">{account?.currency ?? "-"}</p>
                     </div>
                     <div>
                         <p className="label-mono">Holder</p>
-                        <p className="mt-1 text-foreground">{profile?.display_name ?? user?.email ?? "-"}</p>
+                        <p className="text-foreground mt-1">{profile?.display_name ?? user?.email ?? "-"}</p>
                     </div>
                     <div>
                         <p className="label-mono">Period</p>
-                        <p className="mt-1 text-foreground">{periodLabel}</p>
+                        <p className="text-foreground mt-1">{periodLabel}</p>
                     </div>
                 </div>
             </div>
@@ -306,7 +306,7 @@ function StatementsPage() {
                 )}
 
                 {account ? (
-                    <div className="border-t border-stroke px-6 py-4">
+                    <div className="border-stroke border-t px-6 py-4">
                         <p className="label-mono">Summary</p>
                         <dl className="mt-3 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-3 lg:grid-cols-5">
                             <div>
@@ -317,7 +317,7 @@ function StatementsPage() {
                             </div>
                             <div>
                                 <dt className="label-mono">Total in</dt>
-                                <dd className="stat-numeral mt-1 text-sm text-success">
+                                <dd className="stat-numeral text-success mt-1 text-sm">
                                     {formatMoney(totalIn, { currency: account.currency })}
                                 </dd>
                             </div>

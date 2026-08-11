@@ -167,7 +167,7 @@ function TransactionsPage() {
             header: "Description",
             cell: (txn) => (
                 <div className="min-w-0">
-                    <p className="truncate text-foreground">{txn.description}</p>
+                    <p className="text-foreground truncate">{txn.description}</p>
                     <p className="label-mono mt-1">{txn.reference ?? "no reference"}</p>
                 </div>
             ),
@@ -258,7 +258,7 @@ function TransactionsPage() {
                         />
                     }
                 />
-                <div className="grid gap-3 border-b border-stroke px-6 py-4 sm:grid-cols-2 lg:grid-cols-4">
+                <div className="border-stroke grid gap-3 border-b px-6 py-4 sm:grid-cols-2 lg:grid-cols-4">
                     <div className="space-y-2">
                         <Label htmlFor="txn-type">Type</Label>
                         <Select value={typeFilter} onValueChange={(value) => setTypeFilter(value as TypeFilter)}>

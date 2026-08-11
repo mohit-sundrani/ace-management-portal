@@ -24,14 +24,14 @@ export function PanelHeader({
     return (
         <header
             className={cn(
-                "flex flex-wrap items-start justify-between gap-3 border-b border-stroke px-6 py-4 bg-beige",
+                "border-stroke bg-beige flex flex-wrap items-start justify-between gap-3 border-b px-6 py-4",
                 className,
             )}
         >
             <div className="min-w-0">
                 {eyebrow ? <p className="label-mono mb-1.5">{eyebrow}</p> : null}
-                <h3 className="font-heading text-base leading-snug text-foreground">{title}</h3>
-                {description ? <p className="mt-1 text-sm text-grey">{description}</p> : null}
+                <h3 className="font-heading text-foreground text-base leading-snug">{title}</h3>
+                {description ? <p className="text-grey mt-1 text-sm">{description}</p> : null}
             </div>
             {actions ? <div className="flex shrink-0 items-center gap-2">{actions}</div> : null}
         </header>

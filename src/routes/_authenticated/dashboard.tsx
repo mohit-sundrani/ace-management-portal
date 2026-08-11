@@ -46,17 +46,17 @@ type Entry = {
 function EntryList({ entries, empty }: { entries: ReadonlyArray<Entry>; empty: ReactNode }) {
     if (entries.length === 0) return empty;
     return (
-        <ul className="divide-y divide-stroke">
+        <ul className="divide-stroke divide-y">
             {entries.map((entry) => (
                 <li key={entry.id} className="flex items-center justify-between gap-4 px-6 py-3.5">
                     <div className="min-w-0">
-                        <p className="truncate text-sm text-foreground">{entry.label}</p>
+                        <p className="text-foreground truncate text-sm">{entry.label}</p>
                         <p className="label-mono mt-1">{entry.detail}</p>
                     </div>
                     {entry.badge ? (
                         <StatusBadge tone={entry.badge.tone}>{entry.badge.label}</StatusBadge>
                     ) : entry.date ? (
-                        <span className="shrink-0 font-mono text-xs text-grey">{formatDayLabel(entry.date)}</span>
+                        <span className="text-grey shrink-0 font-mono text-xs">{formatDayLabel(entry.date)}</span>
                     ) : (
                         <StatusBadge tone={kindTone[entry.kind] ?? "neutral"}>{entry.kind}</StatusBadge>
                     )}
@@ -319,14 +319,14 @@ function Dashboard() {
                             description="General budgets show planned, spent and remaining against real transactions."
                         />
                     ) : (
-                        <ul className="divide-y divide-stroke">
+                        <ul className="divide-stroke divide-y">
                             {(budgets.data ?? []).slice(0, 6).map((budget) => {
                                 const health = budgetHealth(budget, txns);
                                 return (
                                     <li key={budget.id} className="px-6 py-3.5">
                                         <div className="flex flex-wrap items-center justify-between gap-3">
                                             <div className="min-w-0">
-                                                <p className="truncate text-sm text-foreground">{budget.name}</p>
+                                                <p className="text-foreground truncate text-sm">{budget.name}</p>
                                                 <p className="label-mono mt-1">{budget.period}</p>
                                             </div>
                                             <div className="flex items-center gap-3">
@@ -336,12 +336,12 @@ function Dashboard() {
                                                 </span>
                                             </div>
                                         </div>
-                                        <div className="mt-2.5 h-1 w-full rounded-xs bg-beige">
+                                        <div className="bg-beige mt-2.5 h-1 w-full rounded-xs">
                                             <div
                                                 className={
                                                     health.over
-                                                        ? "h-full rounded-xs bg-danger"
-                                                        : "h-full rounded-xs bg-electric"
+                                                        ? "bg-danger h-full rounded-xs"
+                                                        : "bg-electric h-full rounded-xs"
                                                 }
                                                 style={{ width: `${Math.min(health.usage, 100)}%` }}
                                             />
@@ -365,11 +365,11 @@ function Dashboard() {
                             description="Planning and active events will appear here with their spend."
                         />
                     ) : (
-                        <ul className="divide-y divide-stroke">
+                        <ul className="divide-stroke divide-y">
                             {activeEvents.slice(0, 6).map((event) => (
                                 <li key={event.id} className="flex items-center justify-between gap-4 px-6 py-3.5">
                                     <div className="min-w-0">
-                                        <p className="truncate text-sm text-foreground">{event.name}</p>
+                                        <p className="text-foreground truncate text-sm">{event.name}</p>
                                         <p className="label-mono mt-1">
                                             {formatDate(event.start_date)} ·{" "}
                                             {formatMoney(eventFinance(event, txns, []).actualExpense)} spent
@@ -394,13 +394,13 @@ function Dashboard() {
                             description="Tasks you create will appear here until they're complete."
                         />
                     ) : (
-                        <ul className="divide-y divide-stroke">
+                        <ul className="divide-stroke divide-y">
                             {openTasks.slice(0, 6).map((task) => {
                                 const overdue = Boolean(task.due_date) && (task.due_date as string) < today;
                                 return (
                                     <li key={task.id} className="flex items-center justify-between gap-4 px-6 py-3.5">
                                         <div className="min-w-0">
-                                            <p className="truncate text-sm text-foreground">{task.title}</p>
+                                            <p className="text-foreground truncate text-sm">{task.title}</p>
                                             <p className={`label-mono mt-1 ${overdue ? "text-danger" : ""}`}>
                                                 {task.due_date ? `due ${formatDate(task.due_date)}` : "no due date"}
                                                 {task.priority === "high" ? " · high priority" : ""}
@@ -415,13 +415,13 @@ function Dashboard() {
                         </ul>
                     )}
                     {recentDone.length > 0 ? (
-                        <div className="border-t border-stroke">
+                        <div className="border-stroke border-t">
                             <p className="label-mono px-6 pt-4">Recently completed</p>
-                            <ul className="divide-y divide-stroke">
+                            <ul className="divide-stroke divide-y">
                                 {recentDone.map((task) => (
                                     <li key={task.id} className="flex items-center justify-between gap-4 px-6 py-2.5">
-                                        <p className="truncate text-sm text-foreground">{task.title}</p>
-                                        <span className="shrink-0 font-mono text-xs text-grey">
+                                        <p className="text-foreground truncate text-sm">{task.title}</p>
+                                        <span className="text-grey shrink-0 font-mono text-xs">
                                             {formatDayLabel(task.completed_at?.slice(0, 10))}
                                         </span>
                                     </li>
@@ -443,18 +443,18 @@ function Dashboard() {
                     />
                 ) : (
                     <PanelBody className="p-0">
-                        <ul className="divide-y divide-stroke">
+                        <ul className="divide-stroke divide-y">
                             {txns.slice(0, 8).map((txn) => (
                                 <li key={txn.id} className="flex items-center justify-between gap-4 px-6 py-3.5">
                                     <div className="min-w-0">
-                                        <p className="truncate text-sm text-foreground">{txn.description}</p>
+                                        <p className="text-foreground truncate text-sm">{txn.description}</p>
                                         <p className="label-mono mt-1">{formatDate(txn.occurred_on)}</p>
                                     </div>
                                     <span
                                         className={
                                             txn.type === "income"
-                                                ? "stat-numeral text-sm text-success"
-                                                : "stat-numeral text-sm text-foreground"
+                                                ? "stat-numeral text-success text-sm"
+                                                : "stat-numeral text-foreground text-sm"
                                         }
                                     >
                                         {txn.type === "income" ? "+" : "−"}

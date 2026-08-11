@@ -82,7 +82,7 @@ function EventsPage() {
             header: "Event",
             cell: (event) => (
                 <div className="min-w-0">
-                    <p className="truncate font-medium text-foreground">{event.name}</p>
+                    <p className="text-foreground truncate font-medium">{event.name}</p>
                     <p className="label-mono mt-1">{event.location ?? "No location"}</p>
                 </div>
             ),
@@ -117,7 +117,7 @@ function EventsPage() {
                 <Link
                     to="/events/$id"
                     params={{ id: event.id }}
-                    className="font-mono text-xs uppercase tracking-wide text-electric hover:underline"
+                    className="text-electric font-mono text-xs tracking-wide uppercase hover:underline"
                     onClick={(clickEvent) => clickEvent.stopPropagation()}
                 >
                     Open

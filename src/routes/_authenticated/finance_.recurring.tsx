@@ -141,7 +141,7 @@ function RecurringPage() {
             header: "Rule",
             cell: (rule) => (
                 <div className="min-w-0">
-                    <p className="truncate font-medium text-foreground">{rule.name}</p>
+                    <p className="text-foreground truncate font-medium">{rule.name}</p>
                     <p className="label-mono mt-1">{nameOf(categories.data ?? [], rule.category_id)}</p>
                 </div>
             ),

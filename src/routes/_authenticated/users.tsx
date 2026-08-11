@@ -75,11 +75,11 @@ function UsersPage() {
                 header: "User",
                 cell: (profile) => (
                     <div className="flex min-w-0 items-center gap-3">
-                        <span className="grid size-8 shrink-0 place-items-center rounded-full border border-stroke bg-beige font-mono text-[0.625rem] font-medium text-foreground">
+                        <span className="border-stroke bg-beige text-foreground grid size-8 shrink-0 place-items-center rounded-full border font-mono text-[0.625rem] font-medium">
                             {initialsOf(profile.display_name || "User")}
                         </span>
                         <div className="min-w-0">
-                            <p className="truncate font-medium text-foreground">
+                            <p className="text-foreground truncate font-medium">
                                 {profile.display_name || "Unnamed"}
                                 {profile.id === user?.id ? <span className="text-grey"> · you</span> : null}
                             </p>
@@ -174,7 +174,7 @@ function UsersPage() {
 
             <Panel className="mt-6">
                 <PanelHeader eyebrow="Access model" title="How permissions work" />
-                <PanelBody className="space-y-3 text-sm text-grey">
+                <PanelBody className="text-grey space-y-3 text-sm">
                     <p>
                         Roles live in a dedicated table, never on the profile, so a compromised profile update can never
                         grant administrator rights. Administrators can promote or demote members from this page; an

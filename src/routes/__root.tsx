@@ -9,15 +9,15 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
     return (
-        <div className="flex min-h-screen items-center justify-center bg-background px-4">
+        <div className="bg-background flex min-h-screen items-center justify-center px-4">
             <div className="panel ticked max-w-md p-10 text-center">
                 <p className="label-mono">404 / not found</p>
-                <h1 className="mt-3 font-heading text-3xl text-foreground">This route doesn't exist</h1>
-                <p className="mt-2 text-sm text-grey">The page you're looking for has moved or was never deployed.</p>
+                <h1 className="font-heading text-foreground mt-3 text-3xl">This route doesn't exist</h1>
+                <p className="text-grey mt-2 text-sm">The page you're looking for has moved or was never deployed.</p>
                 <div className="mt-6">
                     <Link
                         to="/"
-                        className="inline-flex h-9 items-center justify-center rounded-md bg-electric px-4 text-sm font-medium text-white transition-transform hover:scale-105"
+                        className="bg-electric inline-flex h-9 items-center justify-center rounded-md px-4 text-sm font-medium text-white transition-transform hover:scale-105"
                     >
                         Back to console
                     </Link>
@@ -34,11 +34,11 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
     }, [error]);
 
     return (
-        <div className="flex min-h-screen items-center justify-center bg-background px-4">
+        <div className="bg-background flex min-h-screen items-center justify-center px-4">
             <div className="panel max-w-md p-10 text-center">
                 <p className="label-mono text-danger">Runtime error</p>
-                <h1 className="mt-3 font-heading text-2xl text-foreground">This page didn't load</h1>
-                <p className="mt-2 text-sm text-grey">
+                <h1 className="font-heading text-foreground mt-3 text-2xl">This page didn't load</h1>
+                <p className="text-grey mt-2 text-sm">
                     Something failed on our end. Retry the request or head back to the console.
                 </p>
                 <div className="mt-6 flex flex-wrap justify-center gap-2">
@@ -47,13 +47,13 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
                             router.invalidate();
                             reset();
                         }}
-                        className="inline-flex h-9 items-center justify-center rounded-md bg-electric px-4 text-sm font-medium text-white transition-transform hover:scale-105"
+                        className="bg-electric inline-flex h-9 items-center justify-center rounded-md px-4 text-sm font-medium text-white transition-transform hover:scale-105"
                     >
                         Try again
                     </button>
                     <a
                         href="/"
-                        className="inline-flex h-9 items-center justify-center rounded-sm border border-stroke bg-surface px-4 text-sm font-medium text-foreground transition-colors hover:border-nickel"
+                        className="border-stroke bg-surface text-foreground hover:border-nickel inline-flex h-9 items-center justify-center rounded-sm border px-4 text-sm font-medium transition-colors"
                     >
                         Go home
                     </a>
