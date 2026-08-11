@@ -31,7 +31,7 @@ export function PanelHeader({
   return (
     <header
       className={cn(
-        "flex flex-wrap items-start justify-between gap-3 border-b border-stroke px-6 py-4",
+        "flex flex-wrap items-start justify-between gap-3 border-b border-stroke px-6 py-4 bg-beige",
         className,
       )}
     >

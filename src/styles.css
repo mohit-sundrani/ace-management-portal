@@ -82,65 +82,135 @@
   --sidebar-w: 15rem;
   --topbar-h: 3.5rem;
 
-  --electric: oklch(0.53 0.26 288);
-  --ruby: oklch(0.57 0.24 292);
-  --vite: oklch(0.76 0.13 292);
-  --beige: oklch(0.96 0.012 95);
-  --grey: oklch(0.6 0.03 310);
-  --nickel: oklch(0.35 0.03 310);
-  --stroke: oklch(0.91 0.004 300);
-  --ink: oklch(0.21 0.014 285);
-  --slate: oklch(0.19 0.024 300);
-  --midnight: oklch(0.13 0.03 300);
-  --success: oklch(0.65 0.18 149);
-  --warning: oklch(0.76 0.15 72);
-  --danger: oklch(0.6 0.2 22);
-  --zest: oklch(0.87 0.26 145);
-  --aqua: oklch(0.86 0.14 187);
+  /* ─────────────────────────────────────────────
+     Vercel-inspired neutral palette
+     ───────────────────────────────────────────── */
 
-  --background: oklch(1 0 0);
+  --electric: oklch(0.55 0.24 285);
+  --ruby: oklch(0.55 0.22 25);
+  --vite: oklch(0.72 0 0);
+
+  --beige: oklch(0.95 0 0);
+  --grey: oklch(0.55 0 0);
+  --nickel: oklch(0.38 0 0);
+  --stroke: oklch(0.91 0 0);
+
+  --ink: oklch(0.145 0 0);
+  --slate: oklch(0.18 0 0);
+  --midnight: oklch(0.1 0 0);
+
+  --success: oklch(0.62 0.16 145);
+  --warning: oklch(0.72 0.15 75);
+  --danger: oklch(0.58 0.2 25);
+  --zest: oklch(0.78 0.18 145);
+  --aqua: oklch(0.72 0.13 195);
+
+  /* Main UI */
+  --background: oklch(0.985 0 0);
   --foreground: var(--ink);
+
   --surface: oklch(1 0 0);
+
   --card: oklch(1 0 0);
   --card-foreground: var(--ink);
+
   --popover: oklch(1 0 0);
   --popover-foreground: var(--ink);
+
   --primary: var(--electric);
   --primary-foreground: oklch(1 0 0);
-  --secondary: var(--beige);
+
+  --secondary: oklch(0.96 0 0);
   --secondary-foreground: var(--ink);
-  --muted: var(--beige);
+
+  --muted: oklch(0.96 0 0);
   --muted-foreground: var(--grey);
-  --accent: var(--beige);
+
+  --accent: oklch(0.95 0 0);
   --accent-foreground: var(--ink);
+
   --destructive: var(--danger);
   --destructive-foreground: oklch(1 0 0);
+
   --border: var(--stroke);
   --input: var(--stroke);
   --ring: var(--electric);
+
+  /* Sidebar intentionally separated from content */
+  --sidebar: oklch(0.955 0 0);
+  --sidebar-foreground: var(--ink);
+  --sidebar-primary: var(--electric);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.925 0 0);
+  --sidebar-accent-foreground: var(--ink);
+  --sidebar-border: oklch(0.89 0 0);
+  --sidebar-ring: var(--electric);
 }
 
 .dark {
-  --beige: oklch(0.24 0.02 300);
-  --grey: oklch(0.68 0.02 300);
-  --stroke: oklch(0.32 0.02 300);
-  --ink: oklch(0.99 0 0);
+  /* ─────────────────────────────────────────────
+     AMOLED / Vercel-inspired dark palette
+     ───────────────────────────────────────────── */
 
-  --background: oklch(0.19 0.02 295);
-  --foreground: oklch(0.99 0 0);
-  --surface: oklch(0.22 0.02 297);
-  --card: oklch(0.22 0.02 297);
-  --card-foreground: oklch(0.99 0 0);
-  --popover: oklch(0.22 0.02 297);
-  --popover-foreground: oklch(0.99 0 0);
-  --secondary: oklch(0.26 0.02 298);
-  --secondary-foreground: oklch(0.99 0 0);
-  --muted: oklch(0.26 0.02 298);
+  --electric: oklch(0.67 0.22 285);
+  --ruby: oklch(0.63 0.2 25);
+  --vite: oklch(0.7 0 0);
+
+  --beige: oklch(0.15 0 0);
+  --grey: oklch(0.68 0 0);
+  --nickel: oklch(0.48 0 0);
+  --stroke: oklch(0.25 0 0);
+
+  --ink: oklch(0.98 0 0);
+  --slate: oklch(0.16 0 0);
+  --midnight: oklch(0.04 0 0);
+
+  --success: oklch(0.7 0.16 145);
+  --warning: oklch(0.78 0.15 75);
+  --danger: oklch(0.68 0.2 25);
+  --zest: oklch(0.82 0.18 145);
+  --aqua: oklch(0.78 0.13 195);
+
+  /* Main UI */
+  --background: oklch(0.055 0 0);
+  --foreground: var(--ink);
+
+  --surface: oklch(0.075 0 0);
+
+  --card: oklch(0.075 0 0);
+  --card-foreground: var(--ink);
+
+  --popover: oklch(0.09 0 0);
+  --popover-foreground: var(--ink);
+
+  --primary: var(--electric);
+  --primary-foreground: oklch(1 0 0);
+
+  --secondary: oklch(0.12 0 0);
+  --secondary-foreground: var(--ink);
+
+  --muted: oklch(0.12 0 0);
   --muted-foreground: var(--grey);
-  --accent: oklch(0.26 0.02 298);
-  --accent-foreground: oklch(0.99 0 0);
+
+  --accent: oklch(0.14 0 0);
+  --accent-foreground: var(--ink);
+
+  --destructive: var(--danger);
+  --destructive-foreground: oklch(1 0 0);
+
   --border: var(--stroke);
   --input: var(--stroke);
+  --ring: var(--electric);
+
+  /* Slightly lifted gray sidebar on AMOLED */
+  --sidebar: oklch(0.085 0 0);
+  --sidebar-foreground: var(--ink);
+  --sidebar-primary: var(--electric);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.13 0 0);
+  --sidebar-accent-foreground: var(--ink);
+  --sidebar-border: oklch(0.22 0 0);
+  --sidebar-ring: var(--electric);
 }
 
 @layer base {

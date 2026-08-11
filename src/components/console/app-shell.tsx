@@ -130,7 +130,7 @@ function NavLinks({ collapsed, onNavigate }: { collapsed: boolean; onNavigate?: 
                       "flex h-9 items-center gap-2 rounded-sm px-3 text-sm transition-colors",
                       "border-l-2 border-transparent",
                       active
-                        ? "border-electric bg-vite/15 font-medium text-foreground"
+                        ? "border-nickel bg-vite/15 font-medium text-foreground"
                         : "text-grey hover:bg-beige hover:text-foreground",
                       collapsed && "justify-center px-0",
                     )}
@@ -152,13 +152,17 @@ function NavLinks({ collapsed, onNavigate }: { collapsed: boolean; onNavigate?: 
 function Brand({ collapsed }: { collapsed: boolean }) {
   return (
     <div className="flex h-14 items-center gap-2.5 border-b border-stroke px-4">
-      <span className="grid size-7 shrink-0 place-items-center rounded-sm bg-electric font-mono text-xs font-medium text-white">
-        OC
+      <span className="grid size-7 shrink-0 place-items-center rounded-sm bg-black dark:bg-white font-mono text-xs font-medium text-white">
+        <img
+          src="/logo.svg"
+          className="h-4 w-4 aspect-square invert dark:invert-0 contrast-200"
+          alt="A"
+        />
       </span>
       {!collapsed ? (
         <span className="min-w-0">
-          <span className="block truncate font-heading text-sm text-foreground">Operations</span>
-          <span className="label-mono block">console</span>
+          <span className="block truncate font-heading text-sm text-foreground">ACE</span>
+          <span className="label-mono block">Management</span>
         </span>
       ) : null}
     </div>
