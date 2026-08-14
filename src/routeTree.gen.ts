@@ -18,7 +18,6 @@ import { Route as AuthenticatedEventsRouteImport } from './routes/_authenticated
 import { Route as AuthenticatedFinanceRouteImport } from './routes/_authenticated/finance'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as AuthenticatedTasksRouteImport } from './routes/_authenticated/tasks'
-import { Route as AuthenticatedUsersRouteImport } from './routes/_authenticated/users'
 import { Route as AuthenticatedEventsIdRouteImport } from './routes/_authenticated/events_.$id'
 import { Route as AuthenticatedFinanceAccountsRouteImport } from './routes/_authenticated/finance_.accounts'
 import { Route as AuthenticatedFinanceBudgetsRouteImport } from './routes/_authenticated/finance_.budgets'
@@ -69,11 +68,6 @@ const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
 const AuthenticatedTasksRoute = AuthenticatedTasksRouteImport.update({
   id: '/tasks',
   path: '/tasks',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedUsersRoute = AuthenticatedUsersRouteImport.update({
-  id: '/users',
-  path: '/users',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedEventsIdRoute = AuthenticatedEventsIdRouteImport.update({
@@ -127,7 +121,6 @@ export interface FileRoutesByFullPath {
   '/finance': typeof AuthenticatedFinanceRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/tasks': typeof AuthenticatedTasksRoute
-  '/users': typeof AuthenticatedUsersRoute
   '/events/$id': typeof AuthenticatedEventsIdRoute
   '/finance/accounts': typeof AuthenticatedFinanceAccountsRoute
   '/finance/budgets': typeof AuthenticatedFinanceBudgetsRoute
@@ -145,7 +138,6 @@ export interface FileRoutesByTo {
   '/finance': typeof AuthenticatedFinanceRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/tasks': typeof AuthenticatedTasksRoute
-  '/users': typeof AuthenticatedUsersRoute
   '/events/$id': typeof AuthenticatedEventsIdRoute
   '/finance/accounts': typeof AuthenticatedFinanceAccountsRoute
   '/finance/budgets': typeof AuthenticatedFinanceBudgetsRoute
@@ -165,7 +157,6 @@ export interface FileRoutesById {
   '/_authenticated/finance': typeof AuthenticatedFinanceRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/_authenticated/tasks': typeof AuthenticatedTasksRoute
-  '/_authenticated/users': typeof AuthenticatedUsersRoute
   '/_authenticated/events_/$id': typeof AuthenticatedEventsIdRoute
   '/_authenticated/finance_/accounts': typeof AuthenticatedFinanceAccountsRoute
   '/_authenticated/finance_/budgets': typeof AuthenticatedFinanceBudgetsRoute
@@ -185,7 +176,6 @@ export interface FileRouteTypes {
     | '/finance'
     | '/settings'
     | '/tasks'
-    | '/users'
     | '/events/$id'
     | '/finance/accounts'
     | '/finance/budgets'
@@ -203,7 +193,6 @@ export interface FileRouteTypes {
     | '/finance'
     | '/settings'
     | '/tasks'
-    | '/users'
     | '/events/$id'
     | '/finance/accounts'
     | '/finance/budgets'
@@ -222,7 +211,6 @@ export interface FileRouteTypes {
     | '/_authenticated/finance'
     | '/_authenticated/settings'
     | '/_authenticated/tasks'
-    | '/_authenticated/users'
     | '/_authenticated/events_/$id'
     | '/_authenticated/finance_/accounts'
     | '/_authenticated/finance_/budgets'
@@ -303,13 +291,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedTasksRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/users': {
-      id: '/_authenticated/users'
-      path: '/users'
-      fullPath: '/users'
-      preLoaderRoute: typeof AuthenticatedUsersRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
     '/_authenticated/events_/$id': {
       id: '/_authenticated/events_/$id'
       path: '/events/$id'
@@ -369,7 +350,6 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedFinanceRoute: typeof AuthenticatedFinanceRoute
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
   AuthenticatedTasksRoute: typeof AuthenticatedTasksRoute
-  AuthenticatedUsersRoute: typeof AuthenticatedUsersRoute
   AuthenticatedEventsIdRoute: typeof AuthenticatedEventsIdRoute
   AuthenticatedFinanceAccountsRoute: typeof AuthenticatedFinanceAccountsRoute
   AuthenticatedFinanceBudgetsRoute: typeof AuthenticatedFinanceBudgetsRoute
@@ -386,7 +366,6 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedFinanceRoute: AuthenticatedFinanceRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
   AuthenticatedTasksRoute: AuthenticatedTasksRoute,
-  AuthenticatedUsersRoute: AuthenticatedUsersRoute,
   AuthenticatedEventsIdRoute: AuthenticatedEventsIdRoute,
   AuthenticatedFinanceAccountsRoute: AuthenticatedFinanceAccountsRoute,
   AuthenticatedFinanceBudgetsRoute: AuthenticatedFinanceBudgetsRoute,

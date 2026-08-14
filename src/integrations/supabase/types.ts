@@ -741,44 +741,15 @@ export type Database = {
                     },
                 ];
             };
-            user_roles: {
-                Row: {
-                    created_at: string;
-                    id: string;
-                    role: Database["public"]["Enums"]["app_role"];
-                    user_id: string;
-                };
-                Insert: {
-                    created_at?: string;
-                    id?: string;
-                    role: Database["public"]["Enums"]["app_role"];
-                    user_id: string;
-                };
-                Update: {
-                    created_at?: string;
-                    id?: string;
-                    role?: Database["public"]["Enums"]["app_role"];
-                    user_id?: string;
-                };
-                Relationships: [];
-            };
         };
         Views: {
             [_ in never]: never;
         };
         Functions: {
-            has_role: {
-                Args: {
-                    _role: Database["public"]["Enums"]["app_role"];
-                    _user_id: string;
-                };
-                Returns: boolean;
-            };
             seed_workspace: { Args: { _uid: string }; Returns: undefined };
         };
         Enums: {
             account_type: "cash" | "bank" | "savings" | "wallet" | "credit_card" | "other";
-            app_role: "administrator" | "user";
             budget_period: "monthly" | "yearly" | "custom";
             event_status: "planning" | "active" | "completed" | "cancelled";
             payment_status: "unpaid" | "partial" | "paid";
@@ -905,7 +876,6 @@ export const Constants = {
     public: {
         Enums: {
             account_type: ["cash", "bank", "savings", "wallet", "credit_card", "other"],
-            app_role: ["administrator", "user"],
             budget_period: ["monthly", "yearly", "custom"],
             event_status: ["planning", "active", "completed", "cancelled"],
             payment_status: ["unpaid", "partial", "paid"],

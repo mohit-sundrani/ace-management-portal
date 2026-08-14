@@ -19,7 +19,6 @@ import {
     Shapes,
     Sun,
     Target,
-    Users,
     Wallet,
 } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
@@ -77,10 +76,7 @@ const NAV: ReadonlyArray<NavGroup> = [
     },
     {
         label: "Workspace",
-        items: [
-            { label: "Users", to: "/users", icon: Users },
-            { label: "Settings", to: "/settings", icon: Settings },
-        ],
+        items: [{ label: "Settings", to: "/settings", icon: Settings }],
     },
 ];
 
@@ -200,7 +196,7 @@ export function AppShell({ children }: { children: ReactNode }) {
     const [collapsed, setCollapsed] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
     const [paletteOpen, setPaletteOpen] = useState(false);
-    const { profile, user, isAdmin } = useAuth();
+    const { profile, user } = useAuth();
     const { dark, toggle } = useTheme();
     const navigate = useNavigate();
 
@@ -299,15 +295,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                             <DropdownMenuContent align="end" className="w-56 rounded-md">
                                 <DropdownMenuLabel className="space-y-1">
                                     <span className="text-foreground block truncate text-sm">{name}</span>
-                                    <span className="label-mono block">{isAdmin ? "administrator" : "user"}</span>
                                 </DropdownMenuLabel>
-                                <DropdownMenuSeparator />
-                                <DropdownMenuItem onSelect={() => void navigate({ to: "/settings" })}>
-                                    <Settings className="size-4" /> Settings
-                                </DropdownMenuItem>
-                                <DropdownMenuItem onSelect={() => void navigate({ to: "/calendar" })}>
-                                    <CalendarRange className="size-4" /> Calendar
-                                </DropdownMenuItem>
                                 <DropdownMenuSeparator />
                                 <DropdownMenuItem onSelect={() => void signOut()} className="text-danger">
                                     <LogOut className="size-4" /> Sign out
