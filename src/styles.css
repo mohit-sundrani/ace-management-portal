@@ -76,10 +76,6 @@
     --sidebar-w: 15rem;
     --topbar-h: 3.5rem;
 
-    /* ─────────────────────────────────────────────
-     Vercel-inspired neutral palette
-     ───────────────────────────────────────────── */
-
     --electric: oklch(0.55 0.24 285);
     --ruby: oklch(0.55 0.22 25);
     --vite: oklch(0.72 0 0);
@@ -99,7 +95,6 @@
     --zest: oklch(0.78 0.18 145);
     --aqua: oklch(0.72 0.13 195);
 
-    /* Main UI */
     --background: oklch(0.985 0 0);
     --foreground: var(--ink);
 
@@ -130,7 +125,6 @@
     --input: var(--stroke);
     --ring: var(--electric);
 
-    /* Sidebar intentionally separated from content */
     --sidebar: oklch(0.955 0 0);
     --sidebar-foreground: var(--ink);
     --sidebar-primary: var(--electric);
@@ -142,10 +136,6 @@
 }
 
 .dark {
-    /* ─────────────────────────────────────────────
-     AMOLED / Vercel-inspired dark palette
-     ───────────────────────────────────────────── */
-
     --electric: oklch(0.67 0.22 285);
     --ruby: oklch(0.63 0.2 25);
     --vite: oklch(0.7 0 0);
@@ -165,7 +155,6 @@
     --zest: oklch(0.82 0.18 145);
     --aqua: oklch(0.78 0.13 195);
 
-    /* Main UI */
     --background: oklch(0.055 0 0);
     --foreground: var(--ink);
 
@@ -196,7 +185,6 @@
     --input: var(--stroke);
     --ring: var(--electric);
 
-    /* Slightly lifted gray sidebar on AMOLED */
     --sidebar: oklch(0.085 0 0);
     --sidebar-foreground: var(--ink);
     --sidebar-primary: var(--electric);
@@ -264,7 +252,6 @@
     background-color: var(--color-surface);
 }
 
-/* Signature corner ticks - one primary panel per page only. */
 @utility ticked {
     position: relative;
 }
@@ -322,15 +309,7 @@
     }
 }
 
-/*
- * Print / PDF output.
- * The statements page drives window.print() with a letterhead, the full ledger
- * table and a summary. Everything here scopes print output to the document:
- * app chrome is hidden, tokens are forced to light for archival contrast, and
- * tables repeat their header row across pages.
- */
 @media print {
-    /* Force a light, archival palette regardless of the on-screen theme. */
     :root,
     .dark {
         --background: #ffffff;
@@ -355,7 +334,6 @@
         color: #111827;
     }
 
-    /* App chrome: sidebar, top bar and page headers never print. */
     .app-shell {
         display: block !important;
     }
@@ -371,13 +349,11 @@
         padding: 0;
     }
 
-    /* Keep colour-coded figures (income, over-budget) visible on paper. */
     * {
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
     }
 
-    /* Repeat the table header on every page and never split a row. */
     thead {
         display: table-header-group;
     }

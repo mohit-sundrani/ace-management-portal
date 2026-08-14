@@ -477,7 +477,7 @@ function CalendarPage() {
                             <section key={date} className="relative break-inside-avoid pb-6 pl-10">
                                 <span
                                     aria-hidden
-                                    className="border-electric absolute top-1.5 left-2 size-2 -translate-x-1/2 rounded-full border-2 bg-white"
+                                    className="absolute top-1.5 left-2 size-2 -translate-x-1/2 rounded-full border-2 border-red-500 bg-white"
                                 />
                                 <div className="flex items-baseline justify-between gap-3">
                                     <h4 className="font-heading text-foreground text-base font-bold">
@@ -492,7 +492,7 @@ function CalendarPage() {
                                         <li key={entry.id} className="relative">
                                             <span
                                                 aria-hidden
-                                                className="bg-electric absolute top-4 -left-8 size-1.5 -translate-x-1/2 rounded-full"
+                                                className="bg-nickel absolute top-4 -left-8 size-1.5 -translate-x-1/2 rounded-full"
                                             />
                                             <span aria-hidden className="bg-stroke absolute top-4.5 -left-8 h-px w-8" />
                                             <div className="border-stroke bg-beige/40 flex items-center justify-between gap-3 rounded-sm border px-3 py-2">
