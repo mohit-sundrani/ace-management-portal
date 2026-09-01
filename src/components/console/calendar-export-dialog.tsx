@@ -22,7 +22,7 @@ export type CalendarEntry = {
     id: string;
     date: string;
     label: string;
-    kind: "item" | "task" | "event";
+    kind: "item" | "task" | "event" | "meeting";
     time?: string | undefined;
 };
 
@@ -38,12 +38,14 @@ const KIND_LABEL: Record<CalendarEntry["kind"], string> = {
     item: "Calendar items",
     task: "Tasks",
     event: "Events",
+    meeting: "Meetings",
 };
 
 const KIND_TONE: Record<CalendarEntry["kind"], Tone> = {
     item: "info",
     task: "warning",
     event: "success",
+    meeting: "neutral",
 };
 
 export function CalendarExportDialog({
@@ -83,7 +85,7 @@ export function CalendarExportDialog({
 
     const groups = useMemo(
         () =>
-            (["item", "task", "event"] as const)
+            (["item", "task", "event", "meeting"] as const)
                 .map((kind) => ({ kind, list: visibleEntries.filter((entry) => entry.kind === kind) }))
                 .filter((group) => group.list.length > 0),
         [visibleEntries],
@@ -138,7 +140,8 @@ export function CalendarExportDialog({
                 <DialogHeader>
                     <DialogTitle className="font-heading">Download calendar</DialogTitle>
                     <DialogDescription>
-                        Pick which items, tasks and events to include, then add a header and footer note to the PDF.
+                        Pick which items, tasks, events and meetings to include, then add a header and footer note to
+                        the PDF.
                     </DialogDescription>
                 </DialogHeader>
 

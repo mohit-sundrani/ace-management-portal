@@ -431,6 +431,45 @@ export type Database = {
                 };
                 Relationships: [];
             };
+            meetings: {
+                Row: {
+                    created_at: string;
+                    date: string;
+                    id: string;
+                    mode: Database["public"]["Enums"]["meeting_mode"];
+                    notes: string | null;
+                    points: Json[];
+                    time: string | null;
+                    title: string;
+                    updated_at: string;
+                    user_id: string;
+                };
+                Insert: {
+                    created_at?: string;
+                    date: string;
+                    id?: string;
+                    mode?: Database["public"]["Enums"]["meeting_mode"];
+                    notes?: string | null;
+                    points?: Json[];
+                    time?: string | null;
+                    title: string;
+                    updated_at?: string;
+                    user_id: string;
+                };
+                Update: {
+                    created_at?: string;
+                    date?: string;
+                    id?: string;
+                    mode?: Database["public"]["Enums"]["meeting_mode"];
+                    notes?: string | null;
+                    points?: Json[];
+                    time?: string | null;
+                    title?: string;
+                    updated_at?: string;
+                    user_id?: string;
+                };
+                Relationships: [];
+            };
             financial_accounts: {
                 Row: {
                     created_at: string;
@@ -751,6 +790,7 @@ export type Database = {
         Enums: {
             account_type: "cash" | "bank" | "savings" | "wallet" | "credit_card" | "other";
             budget_period: "monthly" | "yearly" | "custom";
+            meeting_mode: "online" | "offline";
             event_status: "planning" | "active" | "completed" | "cancelled";
             payment_status: "unpaid" | "partial" | "paid";
             recurrence: "daily" | "weekly" | "monthly" | "yearly";
@@ -877,6 +917,7 @@ export const Constants = {
         Enums: {
             account_type: ["cash", "bank", "savings", "wallet", "credit_card", "other"],
             budget_period: ["monthly", "yearly", "custom"],
+            meeting_mode: ["online", "offline"],
             event_status: ["planning", "active", "completed", "cancelled"],
             payment_status: ["unpaid", "partial", "paid"],
             recurrence: ["daily", "weekly", "monthly", "yearly"],

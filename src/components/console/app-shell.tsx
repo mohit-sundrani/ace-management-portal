@@ -1,5 +1,6 @@
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import {
+    CalendarClock,
     CalendarDays,
     CalendarRange,
     ChevronsLeft,
@@ -59,6 +60,7 @@ const NAV: ReadonlyArray<NavGroup> = [
         items: [
             { label: "Events", to: "/events", icon: PanelsTopLeft },
             { label: "Tasks", to: "/tasks", icon: ListChecks },
+            { label: "Meetings", to: "/meetings", icon: CalendarClock },
             { label: "Calendar", to: "/calendar", icon: CalendarDays },
         ],
     },

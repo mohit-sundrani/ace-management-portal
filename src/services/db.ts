@@ -14,6 +14,7 @@ export type TaskPriority = Enums["task_priority"];
 export type EventStatus = Enums["event_status"];
 export type PaymentStatus = Enums["payment_status"];
 export type RsvpStatus = Enums["rsvp_status"];
+export type MeetingMode = Enums["meeting_mode"];
 export type AccountType = Enums["account_type"];
 export type Recurrence = Enums["recurrence"];
 export type BudgetPeriod = Enums["budget_period"];

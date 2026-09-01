@@ -13,7 +13,7 @@ import {
     startOfMonth,
     startOfWeek,
 } from "date-fns";
-import { CalendarDays, ChevronLeft, ChevronRight, Download, Pencil, Plus, Trash2 } from "lucide-react";
+import { CalendarDays, ChevronLeft, ChevronRight, Download, Pencil, Plus, Trash2, Video, Users } from "lucide-react";
 import { useMemo, useState } from "react";
 
 import { CalendarExportDialog, type CalendarPrintOptions } from "@/components/console/calendar-export-dialog";
@@ -26,7 +26,7 @@ import { StatusBadge } from "@/components/console/status-badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useCollection, useCreate, useRemove, useUpdate } from "@/hooks/use-collection";
-import { formatDate, formatDateLong, timeRange, toISODate } from "@/lib/dates";
+import { formatDate, formatDateLong, formatTime, timeRange, toISODate } from "@/lib/dates";
 import { cn } from "@/lib/utils";
 import type { Row } from "@/services/db";
 
@@ -52,13 +52,14 @@ type Entry = {
     itemId?: string;
     date: string;
     label: string;
-    kind: "item" | "task" | "event";
+    kind: "item" | "task" | "event" | "meeting";
     time?: string | undefined;
+    mode?: "online" | "offline";
 };
 
 const WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
-const kindTone = { item: "info", task: "warning", event: "success" } as const;
+const kindTone = { item: "info", task: "warning", event: "success", meeting: "neutral" } as const;
 
 function CalendarPage() {
     const [cursor, setCursor] = useState(() => startOfMonth(new Date()));
@@ -73,6 +74,7 @@ function CalendarPage() {
     const items = useCollection("calendar_items", { orderBy: { column: "start_date" } });
     const tasks = useCollection("tasks", { orderBy: { column: "due_date" } });
     const events = useCollection("events", { orderBy: { column: "start_date" } });
+    const meetings = useCollection("meetings", { orderBy: { column: "date" } });
     const create = useCreate("calendar_items", "Calendar item");
     const update = useUpdate("calendar_items", "Calendar item");
     const remove = useRemove("calendar_items", "Calendar item");
@@ -100,8 +102,16 @@ function CalendarPage() {
             label: event.name,
             kind: "event",
         }));
-        return [...fromItems, ...fromTasks, ...fromEvents];
-    }, [items.data, tasks.data, events.data]);
+        const fromMeetings: Array<Entry> = (meetings.data ?? []).map((meeting) => ({
+            id: `meeting-${meeting.id}`,
+            date: meeting.date,
+            label: meeting.title,
+            kind: "meeting",
+            time: meeting.time ? formatTime(meeting.time) : undefined,
+            mode: meeting.mode,
+        }));
+        return [...fromItems, ...fromTasks, ...fromEvents, ...fromMeetings];
+    }, [items.data, tasks.data, events.data, meetings.data]);
 
     const byDate = useMemo(() => {
         const map = new Map<string, Array<Entry>>();
@@ -217,7 +227,14 @@ function CalendarPage() {
                 {entry.time ? <p className="label-mono mt-1">{entry.time}</p> : null}
             </div>
             <div className="flex shrink-0 items-center gap-1">
-                <StatusBadge tone={kindTone[entry.kind]}>{entry.kind}</StatusBadge>
+                <StatusBadge tone={kindTone[entry.kind]}>
+                    {entry.kind === "meeting" && entry.mode === "offline" ? (
+                        <Users className="size-3" aria-hidden />
+                    ) : entry.kind === "meeting" ? (
+                        <Video className="size-3" aria-hidden />
+                    ) : null}
+                    {entry.kind}
+                </StatusBadge>
                 {entry.kind === "item" ? (
                     <>
                         <Button
@@ -390,6 +407,7 @@ function CalendarPage() {
                                                             entry.kind === "event" && "border-success bg-success/10",
                                                             entry.kind === "task" && "border-warning bg-warning/10",
                                                             entry.kind === "item" && "border-electric bg-electric/10",
+                                                            entry.kind === "meeting" && "border-nickel bg-nickel/10",
                                                         )}
                                                     >
                                                         {entry.label}
