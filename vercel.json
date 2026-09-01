@@ -1,0 +1,11 @@
+{
+    "functions": {
+        "app/server.ts": {
+            "runtime": "nodejs18.x"
+        }
+    },
+    "routes": [
+        { "src": "/_mountain/.*", "dest": "/" },
+        { "src": "/(.*)", "dest": "/api/server" }
+    ]
+}
