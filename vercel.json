@@ -1,11 +1,8 @@
 {
-    "functions": {
-        "app/server.ts": {
-            "runtime": "nodejs18.x"
+    "rewrites": [
+        {
+            "source": "/(.*)",
+            "destination": "/api/server"
         }
-    },
-    "routes": [
-        { "src": "/_mountain/.*", "dest": "/" },
-        { "src": "/(.*)", "dest": "/api/server" }
     ]
 }
