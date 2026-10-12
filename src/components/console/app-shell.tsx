@@ -207,6 +207,31 @@ export function AppShell({ children }: { children: ReactNode }) {
         if (stored === "collapsed") setCollapsed(true);
     }, []);
 
+    // Verify device on load — if the session exists but fingerprint doesn't match,
+    // we should still allow access (the session was already approved at login time).
+    // This is a soft check: we just update last_active_at to keep the session alive.
+    useEffect(() => {
+        const check = async () => {
+            const {
+                data: { session },
+            } = await supabase.auth.getSession();
+            if (!session) return;
+
+            const { collectFingerprintInput, computeFingerprint, verifyCurrentSession } =
+                await import("@/services/session");
+            const fpInput = collectFingerprintInput();
+            const fingerprint = computeFingerprint(fpInput);
+            const result = await verifyCurrentSession(fingerprint);
+
+            if (result.allowed && result.session) {
+                // Touch the session to update last_active_at
+                const { logSessionEvent } = await import("@/services/session");
+                await logSessionEvent(result.session.id, "heartbeat", "Page load");
+            }
+        };
+        check();
+    }, []);
+
     useEffect(() => {
         const onKey = (event: KeyboardEvent) => {
             if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {

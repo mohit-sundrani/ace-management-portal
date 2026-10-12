@@ -36,3 +36,4 @@ dist-ssr
 
 # Supaase CLI
 supabase/.temp
+.vercel

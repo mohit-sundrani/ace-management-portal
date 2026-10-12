@@ -1,8 +1,6 @@
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
 export type Database = {
-    // Allows to automatically instantiate createClient with right options
-    // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
     __InternalSupabase: {
         PostgrestVersion: "14.15";
     };
@@ -20,7 +18,6 @@ export type Database = {
                     planned_amount: number;
                     start_date: string;
                     updated_at: string;
-                    user_id: string;
                 };
                 Insert: {
                     category_id?: string | null;
@@ -33,7 +30,6 @@ export type Database = {
                     planned_amount?: number;
                     start_date: string;
                     updated_at?: string;
-                    user_id: string;
                 };
                 Update: {
                     category_id?: string | null;
@@ -46,7 +42,6 @@ export type Database = {
                     planned_amount?: number;
                     start_date?: string;
                     updated_at?: string;
-                    user_id?: string;
                 };
                 Relationships: [
                     {
@@ -75,7 +70,6 @@ export type Database = {
                     task_id: string | null;
                     title: string;
                     updated_at: string;
-                    user_id: string;
                 };
                 Insert: {
                     all_day?: boolean;
@@ -93,7 +87,6 @@ export type Database = {
                     task_id?: string | null;
                     title: string;
                     updated_at?: string;
-                    user_id: string;
                 };
                 Update: {
                     all_day?: boolean;
@@ -111,7 +104,6 @@ export type Database = {
                     task_id?: string | null;
                     title?: string;
                     updated_at?: string;
-                    user_id?: string;
                 };
                 Relationships: [
                     {
@@ -139,7 +131,6 @@ export type Database = {
                     kind: Database["public"]["Enums"]["txn_type"];
                     name: string;
                     updated_at: string;
-                    user_id: string;
                 };
                 Insert: {
                     color?: string;
@@ -149,7 +140,6 @@ export type Database = {
                     kind: Database["public"]["Enums"]["txn_type"];
                     name: string;
                     updated_at?: string;
-                    user_id: string;
                 };
                 Update: {
                     color?: string;
@@ -159,7 +149,6 @@ export type Database = {
                     kind?: Database["public"]["Enums"]["txn_type"];
                     name?: string;
                     updated_at?: string;
-                    user_id?: string;
                 };
                 Relationships: [];
             };
@@ -174,7 +163,6 @@ export type Database = {
                     notes: string | null;
                     planned_amount: number;
                     updated_at: string;
-                    user_id: string;
                 };
                 Insert: {
                     category_id?: string | null;
@@ -186,19 +174,16 @@ export type Database = {
                     notes?: string | null;
                     planned_amount?: number;
                     updated_at?: string;
-                    user_id: string;
                 };
                 Update: {
                     category_id?: string | null;
                     created_at?: string;
                     event_id?: string;
-                    id?: string;
                     kind?: Database["public"]["Enums"]["txn_type"];
                     label?: string;
                     notes?: string | null;
                     planned_amount?: number;
                     updated_at?: string;
-                    user_id?: string;
                 };
                 Relationships: [
                     {
@@ -228,7 +213,6 @@ export type Database = {
                     party_size: number;
                     rsvp: Database["public"]["Enums"]["rsvp_status"];
                     updated_at: string;
-                    user_id: string;
                 };
                 Insert: {
                     contact?: string | null;
@@ -240,19 +224,16 @@ export type Database = {
                     party_size?: number;
                     rsvp?: Database["public"]["Enums"]["rsvp_status"];
                     updated_at?: string;
-                    user_id: string;
                 };
                 Update: {
                     contact?: string | null;
                     created_at?: string;
                     event_id?: string;
-                    id?: string;
                     name?: string;
                     notes?: string | null;
                     party_size?: number;
                     rsvp?: Database["public"]["Enums"]["rsvp_status"];
                     updated_at?: string;
-                    user_id?: string;
                 };
                 Relationships: [
                     {
@@ -278,7 +259,6 @@ export type Database = {
                     planned_amount: number;
                     status: Database["public"]["Enums"]["payment_status"];
                     updated_at: string;
-                    user_id: string;
                     vendor_id: string | null;
                 };
                 Insert: {
@@ -294,7 +274,6 @@ export type Database = {
                     planned_amount?: number;
                     status?: Database["public"]["Enums"]["payment_status"];
                     updated_at?: string;
-                    user_id: string;
                     vendor_id?: string | null;
                 };
                 Update: {
@@ -302,7 +281,6 @@ export type Database = {
                     direction?: Database["public"]["Enums"]["txn_type"];
                     due_date?: string | null;
                     event_id?: string;
-                    id?: string;
                     label?: string;
                     notes?: string | null;
                     paid_amount?: number;
@@ -310,7 +288,6 @@ export type Database = {
                     planned_amount?: number;
                     status?: Database["public"]["Enums"]["payment_status"];
                     updated_at?: string;
-                    user_id?: string;
                     vendor_id?: string | null;
                 };
                 Relationships: [
@@ -344,7 +321,6 @@ export type Database = {
                     service: string | null;
                     status: Database["public"]["Enums"]["payment_status"];
                     updated_at: string;
-                    user_id: string;
                 };
                 Insert: {
                     agreed_amount?: number;
@@ -359,14 +335,12 @@ export type Database = {
                     service?: string | null;
                     status?: Database["public"]["Enums"]["payment_status"];
                     updated_at?: string;
-                    user_id: string;
                 };
                 Update: {
                     agreed_amount?: number;
                     contact?: string | null;
                     created_at?: string;
                     event_id?: string;
-                    id?: string;
                     name?: string;
                     notes?: string | null;
                     paid_amount?: number;
@@ -374,7 +348,6 @@ export type Database = {
                     service?: string | null;
                     status?: Database["public"]["Enums"]["payment_status"];
                     updated_at?: string;
-                    user_id?: string;
                 };
                 Relationships: [
                     {
@@ -399,7 +372,6 @@ export type Database = {
                     start_date: string;
                     status: Database["public"]["Enums"]["event_status"];
                     updated_at: string;
-                    user_id: string;
                 };
                 Insert: {
                     created_at?: string;
@@ -413,7 +385,6 @@ export type Database = {
                     start_date: string;
                     status?: Database["public"]["Enums"]["event_status"];
                     updated_at?: string;
-                    user_id: string;
                 };
                 Update: {
                     created_at?: string;
@@ -427,7 +398,6 @@ export type Database = {
                     start_date?: string;
                     status?: Database["public"]["Enums"]["event_status"];
                     updated_at?: string;
-                    user_id?: string;
                 };
                 Relationships: [];
             };
@@ -442,7 +412,6 @@ export type Database = {
                     time: string | null;
                     title: string;
                     updated_at: string;
-                    user_id: string;
                 };
                 Insert: {
                     created_at?: string;
@@ -454,7 +423,6 @@ export type Database = {
                     time?: string | null;
                     title: string;
                     updated_at?: string;
-                    user_id: string;
                 };
                 Update: {
                     created_at?: string;
@@ -466,7 +434,6 @@ export type Database = {
                     time?: string | null;
                     title?: string;
                     updated_at?: string;
-                    user_id?: string;
                 };
                 Relationships: [];
             };
@@ -481,7 +448,6 @@ export type Database = {
                     opening_balance: number;
                     type: Database["public"]["Enums"]["account_type"];
                     updated_at: string;
-                    user_id: string;
                 };
                 Insert: {
                     created_at?: string;
@@ -493,7 +459,6 @@ export type Database = {
                     opening_balance?: number;
                     type?: Database["public"]["Enums"]["account_type"];
                     updated_at?: string;
-                    user_id: string;
                 };
                 Update: {
                     created_at?: string;
@@ -505,7 +470,6 @@ export type Database = {
                     opening_balance?: number;
                     type?: Database["public"]["Enums"]["account_type"];
                     updated_at?: string;
-                    user_id?: string;
                 };
                 Relationships: [];
             };
@@ -515,21 +479,18 @@ export type Database = {
                     id: string;
                     is_active: boolean;
                     name: string;
-                    user_id: string;
                 };
                 Insert: {
                     created_at?: string;
                     id?: string;
                     is_active?: boolean;
                     name: string;
-                    user_id: string;
                 };
                 Update: {
                     created_at?: string;
                     id?: string;
                     is_active?: boolean;
                     name?: string;
-                    user_id?: string;
                 };
                 Relationships: [];
             };
@@ -547,7 +508,7 @@ export type Database = {
                     created_at?: string;
                     currency?: string;
                     display_name?: string;
-                    id: string;
+                    id?: string;
                     updated_at?: string;
                 };
                 Update: {
@@ -576,7 +537,6 @@ export type Database = {
                     notes: string | null;
                     type: Database["public"]["Enums"]["txn_type"];
                     updated_at: string;
-                    user_id: string;
                 };
                 Insert: {
                     account_id?: string | null;
@@ -593,7 +553,6 @@ export type Database = {
                     notes?: string | null;
                     type: Database["public"]["Enums"]["txn_type"];
                     updated_at?: string;
-                    user_id: string;
                 };
                 Update: {
                     account_id?: string | null;
@@ -610,7 +569,6 @@ export type Database = {
                     notes?: string | null;
                     type?: Database["public"]["Enums"]["txn_type"];
                     updated_at?: string;
-                    user_id?: string;
                 };
                 Relationships: [
                     {
@@ -625,6 +583,82 @@ export type Database = {
                         columns: ["category_id"];
                         isOneToOne: false;
                         referencedRelation: "categories";
+                        referencedColumns: ["id"];
+                    },
+                ];
+            };
+            sessions: {
+                Row: {
+                    id: string;
+                    auth_user_id: string;
+                    device_label: string;
+                    fingerprint_hash: string;
+                    ip_address: string | null;
+                    user_agent: string | null;
+                    created_at: string;
+                    last_active_at: string;
+                    revoked: boolean;
+                };
+                Insert: {
+                    id?: string;
+                    auth_user_id: string;
+                    device_label?: string;
+                    fingerprint_hash?: string;
+                    ip_address?: string | null;
+                    user_agent?: string | null;
+                    created_at?: string;
+                    last_active_at?: string;
+                    revoked?: boolean;
+                };
+                Update: {
+                    id?: string;
+                    auth_user_id?: string;
+                    device_label?: string;
+                    fingerprint_hash?: string;
+                    ip_address?: string | null;
+                    user_agent?: string | null;
+                    created_at?: string;
+                    last_active_at?: string;
+                    revoked?: boolean;
+                };
+                Relationships: [
+                    {
+                        foreignKeyName: "sessions_auth_user_id_fkey";
+                        columns: ["auth_user_id"];
+                        isOneToOne: false;
+                        referencedRelation: "users";
+                        referencedColumns: ["id"];
+                    },
+                ];
+            };
+            session_events: {
+                Row: {
+                    id: string;
+                    session_id: string;
+                    event_type: string;
+                    note: string | null;
+                    created_at: string;
+                };
+                Insert: {
+                    id?: string;
+                    session_id: string;
+                    event_type?: string;
+                    note?: string | null;
+                    created_at?: string;
+                };
+                Update: {
+                    id?: string;
+                    session_id?: string;
+                    event_type?: string;
+                    note?: string | null;
+                    created_at?: string;
+                };
+                Relationships: [
+                    {
+                        foreignKeyName: "session_events_session_id_fkey";
+                        columns: ["session_id"];
+                        isOneToOne: false;
+                        referencedRelation: "sessions";
                         referencedColumns: ["id"];
                     },
                 ];
@@ -647,7 +681,6 @@ export type Database = {
                     status: Database["public"]["Enums"]["task_status"];
                     title: string;
                     updated_at: string;
-                    user_id: string;
                 };
                 Insert: {
                     category?: string | null;
@@ -666,7 +699,6 @@ export type Database = {
                     status?: Database["public"]["Enums"]["task_status"];
                     title: string;
                     updated_at?: string;
-                    user_id: string;
                 };
                 Update: {
                     category?: string | null;
@@ -685,7 +717,6 @@ export type Database = {
                     status?: Database["public"]["Enums"]["task_status"];
                     title?: string;
                     updated_at?: string;
-                    user_id?: string;
                 };
                 Relationships: [
                     {
@@ -713,14 +744,13 @@ export type Database = {
                     reference: string | null;
                     type: Database["public"]["Enums"]["txn_type"];
                     updated_at: string;
-                    user_id: string;
                 };
                 Insert: {
                     account_id?: string | null;
                     amount: number;
                     category_id?: string | null;
                     created_at?: string;
-                    description?: string;
+                    description: string;
                     event_id?: string | null;
                     id?: string;
                     notes?: string | null;
@@ -730,7 +760,6 @@ export type Database = {
                     reference?: string | null;
                     type: Database["public"]["Enums"]["txn_type"];
                     updated_at?: string;
-                    user_id: string;
                 };
                 Update: {
                     account_id?: string | null;
@@ -747,7 +776,6 @@ export type Database = {
                     reference?: string | null;
                     type?: Database["public"]["Enums"]["txn_type"];
                     updated_at?: string;
-                    user_id?: string;
                 };
                 Relationships: [
                     {
@@ -785,7 +813,36 @@ export type Database = {
             [_ in never]: never;
         };
         Functions: {
-            seed_workspace: { Args: { _uid: string }; Returns: undefined };
+            current_session: {
+                Args: { _fingerprint_hash: string | null };
+                Returns: {
+                    id: string;
+                    auth_user_id: string;
+                    device_label: string;
+                    fingerprint_hash: string;
+                    ip_address: string | null;
+                    user_agent: string | null;
+                    created_at: string;
+                    last_active_at: string;
+                    revoked: boolean;
+                } | null;
+            };
+            log_session_event: {
+                Args: { _session_id: string; _event_type: string; _note: string | null };
+                Returns: void;
+            };
+            revoke_other_sessions: {
+                Args: { _keep_session_id: string };
+                Returns: void;
+            };
+            sync_vendor_totals: {
+                Args: Record<string, never>;
+                Returns: Record<string, never>;
+            };
+            touch_session: {
+                Args: Record<string, never>;
+                Returns: Record<string, never>;
+            };
         };
         Enums: {
             account_type: "cash" | "bank" | "savings" | "wallet" | "credit_card" | "other";

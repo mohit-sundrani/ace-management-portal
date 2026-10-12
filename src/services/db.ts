@@ -90,7 +90,7 @@ export async function getRow<T extends TableName>(name: T, id: string): Promise<
 export async function insertRow<T extends TableName>(name: T, values: InsertRow<T>): Promise<Row<T>> {
     const { data: auth } = await supabase.auth.getUser();
     if (!auth.user) throw new DataError("Your session expired. Please sign in again.");
-    const payload = { ...(values as Record<string, unknown>), user_id: auth.user.id };
+    const payload = values as Record<string, unknown>;
     const { data, error } = await table_(name).insert(payload).select().single();
     if (error) throw new DataError(friendly("save this record", error.code));
     return data as Row<T>;

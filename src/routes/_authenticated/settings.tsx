@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuth } from "@/hooks/use-auth";
+import { SessionsPanel } from "@/components/console/sessions-panel";
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/_authenticated/settings")({
@@ -91,15 +92,7 @@ function SettingsPage() {
                 </PanelBody>
             </Panel>
 
-            <Panel className="mt-6">
-                <PanelHeader eyebrow="Session" title="Sign out" />
-                <PanelBody className="flex flex-wrap items-center justify-between gap-4">
-                    <p className="text-grey text-sm">End this session on the current device.</p>
-                    <Button variant="outline" onClick={() => void signOut()}>
-                        Sign out
-                    </Button>
-                </PanelBody>
-            </Panel>
+            <SessionsPanel />
         </>
     );
 }
